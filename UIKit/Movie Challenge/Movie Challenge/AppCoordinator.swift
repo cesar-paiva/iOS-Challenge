@@ -39,5 +39,9 @@ class AppCoordinator: Coordinator {
         self.navigationController = navigationController
     }
 
-    func start() {}
+    func start() {
+
+        let moviesCoordinator = HomeCoordinator(withNavigationController: navigationController)
+        moviesCoordinator.start()
+    }
 }
