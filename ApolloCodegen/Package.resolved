@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/apollographql/apollo-ios.git",
         "state": {
           "branch": null,
-          "revision": "d93568fb58f3eed95c2a0068d830a39a6e9d6c97",
-          "version": "0.50.0"
+          "revision": "08a41bad4ebf76ae8e4efebf26862a42084b7786",
+          "version": "0.51.2"
         }
       },
       {
