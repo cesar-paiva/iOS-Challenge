@@ -10,6 +10,7 @@ import UIKit
 enum LayoutSection: Int, Hashable {
     case topMovies
     case allMovies
+    case genres
 }
 
 extension LayoutSection {
@@ -47,6 +48,13 @@ extension LayoutSection {
             section.orthogonalScrollingBehavior = .groupPaging
             section.boundarySupplementaryItems = [supplementaryHeaderItem(), supplementaryFooterSeparatorItem()]
             return section
+        case .genres:
+
+            var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+            listConfiguration.showsSeparators = true
+            listConfiguration.headerMode = .supplementary
+            let list = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
+            return list
         }
     }
 

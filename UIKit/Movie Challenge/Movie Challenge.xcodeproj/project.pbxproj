@@ -34,6 +34,10 @@
 		90213C4C28656C2A006435B9 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213C4A28656C2A006435B9 /* MovieCollectionViewCell.swift */; };
 		90213C4D28656C2A006435B9 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90213C4B28656C2A006435B9 /* MovieCollectionViewCell.xib */; };
 		90213C5228656CAC006435B9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213C5128656CAC006435B9 /* HomeViewModel.swift */; };
+		90213C5428656FE7006435B9 /* GenresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213C5328656FE7006435B9 /* GenresService.swift */; };
+		90213C5628657010006435B9 /* Genres.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 90213C5528657010006435B9 /* Genres.graphql */; };
+		90213C5828657123006435B9 /* UICollectionViewListCell+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213C5728657123006435B9 /* UICollectionViewListCell+Setup.swift */; };
+		90213C5A286573B0006435B9 /* Genres.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90213C59286573B0006435B9 /* Genres.graphql.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +68,10 @@
 		90213C4A28656C2A006435B9 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		90213C4B28656C2A006435B9 /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
 		90213C5128656CAC006435B9 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		90213C5328656FE7006435B9 /* GenresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresService.swift; sourceTree = "<group>"; };
+		90213C5528657010006435B9 /* Genres.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Genres.graphql; sourceTree = "<group>"; };
+		90213C5728657123006435B9 /* UICollectionViewListCell+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewListCell+Setup.swift"; sourceTree = "<group>"; };
+		90213C59286573B0006435B9 /* Genres.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Genres.graphql.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +90,7 @@
 		3284FFD3275B0CEA0039F3EB /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				90213C59286573B0006435B9 /* Genres.graphql.swift */,
 				3284FFD4275B0CEA0039F3EB /* Movies.graphql.swift */,
 			);
 			path = Generated;
@@ -111,6 +120,7 @@
 				90213C1628656A2D006435B9 /* Home */,
 				3284FFD3275B0CEA0039F3EB /* Generated */,
 				3284FFDD275B14130039F3EB /* Movies.graphql */,
+				90213C5528657010006435B9 /* Genres.graphql */,
 				3289DFF7275AF2190058C710 /* Assets.xcassets */,
 				3289DFF9275AF2190058C710 /* LaunchScreen.storyboard */,
 				3289DFFC275AF2190058C710 /* Info.plist */,
@@ -193,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				90213C2D28656A2D006435B9 /* HomeService.swift */,
+				90213C5328656FE7006435B9 /* GenresService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -211,6 +222,7 @@
 		90213C3328656A2E006435B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				90213C5728657123006435B9 /* UICollectionViewListCell+Setup.swift */,
 				90213C3428656A2E006435B9 /* UIImageView+Load.swift */,
 			);
 			path = Extensions;
@@ -289,6 +301,7 @@
 				90213C4228656A2E006435B9 /* HomeViewController.xib in Resources */,
 				3284FFDE275B14130039F3EB /* Movies.graphql in Resources */,
 				90213C4D28656C2A006435B9 /* MovieCollectionViewCell.xib in Resources */,
+				90213C5628657010006435B9 /* Genres.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,12 +337,15 @@
 				3284FFD6275B0CEA0039F3EB /* Movies.graphql.swift in Sources */,
 				90213C3E28656A2E006435B9 /* TopMoviesCollectionViewCell.swift in Sources */,
 				90213C3A28656A2E006435B9 /* LayoutSection.swift in Sources */,
+				90213C5828657123006435B9 /* UICollectionViewListCell+Setup.swift in Sources */,
 				90213C3728656A2E006435B9 /* Movie.swift in Sources */,
 				90213C4628656A2E006435B9 /* Network.swift in Sources */,
 				90213C4928656A2E006435B9 /* UIImageView+Load.swift in Sources */,
 				90213C3928656A2E006435B9 /* Section.swift in Sources */,
 				90213C4528656A2E006435B9 /* AppCoordinator.swift in Sources */,
 				90213C3828656A2E006435B9 /* SectionItem.swift in Sources */,
+				90213C5A286573B0006435B9 /* Genres.graphql.swift in Sources */,
+				90213C5428656FE7006435B9 /* GenresService.swift in Sources */,
 				90213C3628656A2E006435B9 /* HomeCoordinator.swift in Sources */,
 				90213C4728656A2E006435B9 /* Bindable.swift in Sources */,
 				90213C4428656A2E006435B9 /* HomeService.swift in Sources */,

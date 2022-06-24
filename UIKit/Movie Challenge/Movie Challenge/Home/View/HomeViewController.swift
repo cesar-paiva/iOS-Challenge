@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
 
     var topMoviesRegistration: UICollectionView.CellRegistration<TopMoviesCollectionViewCell, SectionItem>!
     var allMoviesRegistration: UICollectionView.CellRegistration<MovieCollectionViewCell, SectionItem>!
+    var genresRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, SectionItem>!
     var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
     var footerRegistration: UICollectionView.SupplementaryRegistration<SeparatorCollectionReusableView>!
 
@@ -66,6 +67,10 @@ class HomeViewController: UIViewController {
         allMoviesRegistration = .init(cellNib: MovieCollectionViewCell.nib, handler: { (cell, _, item) in
             cell.setup(withItem: item)
         })
+
+        genresRegistration = .init(handler: { (cell, indexPath, item) in
+            cell.setup(withItem: item)
+        })
     }
 
     func setupHeader() {
@@ -93,6 +98,14 @@ class HomeViewController: UIViewController {
         viewModel.allMovies.bind { allMovies in
             if let allMovies = allMovies, !allMovies.isEmpty {
                 self.sections.append(Section("Browse By All", .allMovies, allMovies))
+                self.viewModel.fetchGenres()
+                self.setupDataSource()
+            }
+        }
+
+        viewModel.genres.bind { genres in
+            if let genres = genres, !genres.isEmpty {
+                self.sections.append(Section("Browse By Genre", .genres, genres))
                 self.setupDataSource()
             }
         }
@@ -111,6 +124,8 @@ class HomeViewController: UIViewController {
                 return collectionView.dequeueConfiguredReusableCell(using: self.topMoviesRegistration, for: indexPath, item: item)
             case .allMovies:
                 return collectionView.dequeueConfiguredReusableCell(using: self.allMoviesRegistration, for: indexPath, item: item)
+            case .genres:
+                return collectionView.dequeueConfiguredReusableCell(using: self.genresRegistration, for: indexPath, item: item)
             }
         }
 
