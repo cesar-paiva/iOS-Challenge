@@ -9,6 +9,7 @@ import UIKit
 
 enum LayoutSection: Int, Hashable {
     case topMovies
+    case allMovies
 }
 
 extension LayoutSection {
@@ -27,6 +28,23 @@ extension LayoutSection {
             section.orthogonalScrollingBehavior = .continuous
             section.contentInsets = .init(top: 0, leading: 16, bottom: 16, trailing: 16)
             section.supplementariesFollowContentInsets = false
+            section.boundarySupplementaryItems = [supplementaryHeaderItem(), supplementaryFooterSeparatorItem()]
+            return section
+        case .allMovies:
+
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
+
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitems: [item])
+
+            let containerGroup = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8),heightDimension: .estimated(1)), subitems: Array(repeating: group, count: 3))
+            containerGroup.interItemSpacing = .fixed(16)
+
+            let section = NSCollectionLayoutSection(group: containerGroup)
+            section.interGroupSpacing = 16
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16)
+            section.supplementariesFollowContentInsets = false
+            section.orthogonalScrollingBehavior = .groupPaging
             section.boundarySupplementaryItems = [supplementaryHeaderItem(), supplementaryFooterSeparatorItem()]
             return section
         }

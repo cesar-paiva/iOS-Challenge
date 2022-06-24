@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     var sections: [Section] = []
 
     var topMoviesRegistration: UICollectionView.CellRegistration<TopMoviesCollectionViewCell, SectionItem>!
+    var allMoviesRegistration: UICollectionView.CellRegistration<MovieCollectionViewCell, SectionItem>!
     var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
     var footerRegistration: UICollectionView.SupplementaryRegistration<SeparatorCollectionReusableView>!
 
@@ -61,6 +62,10 @@ class HomeViewController: UIViewController {
         topMoviesRegistration = .init(cellNib: TopMoviesCollectionViewCell.nib, handler: { (cell, _, item) in
             cell.setup(withItem: item)
         })
+
+        allMoviesRegistration = .init(cellNib: MovieCollectionViewCell.nib, handler: { (cell, _, item) in
+            cell.setup(withItem: item)
+        })
     }
 
     func setupHeader() {
@@ -80,6 +85,14 @@ class HomeViewController: UIViewController {
         viewModel.topFiveMovies.bind { topFiveMovies in
             if let topFiveMovies = topFiveMovies, !topFiveMovies.isEmpty {
                 self.sections.append(Section("Top Five Rated", .topMovies, topFiveMovies))
+                self.viewModel.fetchAllMovies()
+                self.setupDataSource()
+            }
+        }
+
+        viewModel.allMovies.bind { allMovies in
+            if let allMovies = allMovies, !allMovies.isEmpty {
+                self.sections.append(Section("Browse By All", .allMovies, allMovies))
                 self.setupDataSource()
             }
         }
@@ -96,6 +109,8 @@ class HomeViewController: UIViewController {
             switch sectionIdentifier {
             case .topMovies:
                 return collectionView.dequeueConfiguredReusableCell(using: self.topMoviesRegistration, for: indexPath, item: item)
+            case .allMovies:
+                return collectionView.dequeueConfiguredReusableCell(using: self.allMoviesRegistration, for: indexPath, item: item)
             }
         }
 

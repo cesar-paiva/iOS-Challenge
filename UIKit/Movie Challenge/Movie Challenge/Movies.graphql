@@ -7,3 +7,13 @@ query GetTopFiveMovies {
     posterPath
   }
 }
+
+query GetAllMovies {
+  movies(orderBy: "title") {
+    __typename
+    title
+    releaseDate
+    voteAverage
+    posterPath
+  }
+}
