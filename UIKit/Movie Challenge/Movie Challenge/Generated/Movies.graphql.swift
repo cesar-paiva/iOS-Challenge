@@ -4,19 +4,22 @@
 import Apollo
 import Foundation
 
-public final class GetMoviesQueryQuery: GraphQLQuery {
+public final class GetTopFiveMoviesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query GetMoviesQuery {
-      movies {
+    query GetTopFiveMovies {
+      movies(limit: 5, orderBy: "voteAverage", sort: DESC) {
         __typename
         title
+        releaseDate
+        voteAverage
+        posterPath
       }
     }
     """
 
-  public let operationName: String = "GetMoviesQuery"
+  public let operationName: String = "GetTopFiveMovies"
 
   public init() {
   }
@@ -26,7 +29,7 @@ public final class GetMoviesQueryQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("movies", type: .list(.object(Movie.selections))),
+        GraphQLField("movies", arguments: ["limit": 5, "orderBy": "voteAverage", "sort": "DESC"], type: .list(.object(Movie.selections))),
       ]
     }
 
@@ -56,6 +59,9 @@ public final class GetMoviesQueryQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("title", type: .nonNull(.scalar(String.self))),
+          GraphQLField("releaseDate", type: .nonNull(.scalar(String.self))),
+          GraphQLField("voteAverage", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("posterPath", type: .scalar(String.self)),
         ]
       }
 
@@ -65,8 +71,8 @@ public final class GetMoviesQueryQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(title: String) {
-        self.init(unsafeResultMap: ["__typename": "Movie", "title": title])
+      public init(title: String, releaseDate: String, voteAverage: Double, posterPath: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Movie", "title": title, "releaseDate": releaseDate, "voteAverage": voteAverage, "posterPath": posterPath])
       }
 
       public var __typename: String {
@@ -84,6 +90,33 @@ public final class GetMoviesQueryQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+
+      public var releaseDate: String {
+        get {
+          return resultMap["releaseDate"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "releaseDate")
+        }
+      }
+
+      public var voteAverage: Double {
+        get {
+          return resultMap["voteAverage"]! as! Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "voteAverage")
+        }
+      }
+
+      public var posterPath: String? {
+        get {
+          return resultMap["posterPath"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "posterPath")
         }
       }
     }

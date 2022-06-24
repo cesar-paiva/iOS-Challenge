@@ -1,5 +1,9 @@
-query GetMoviesQuery {
-  movies {
+query GetTopFiveMovies {
+  movies(limit: 5, orderBy: "voteAverage", sort: DESC) {
+    __typename
     title
+    releaseDate
+    voteAverage
+    posterPath
   }
 }
