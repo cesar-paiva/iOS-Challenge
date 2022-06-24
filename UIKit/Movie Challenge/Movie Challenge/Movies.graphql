@@ -17,3 +17,11 @@ query GetAllMovies {
     posterPath
   }
 }
+
+query GetMoviesByGenre($genre: String!) {
+  movies(genre: $genre, orderBy: "title") {
+    __typename
+    title
+    posterPath
+  }
+}

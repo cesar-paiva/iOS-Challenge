@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct MovieByGenre: Codable {
+
+    let title: String?
+    let posterPath: String?
+}
+

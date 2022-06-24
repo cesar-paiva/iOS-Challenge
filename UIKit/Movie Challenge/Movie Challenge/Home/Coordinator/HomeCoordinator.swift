@@ -19,6 +19,18 @@ class HomeCoordinator: Coordinator {
     func start() {
 
         let homeViewController = HomeViewController()
+        homeViewController.coordinator = self
         navigationController.pushViewController(homeViewController, animated: true)
+    }
+}
+
+extension HomeCoordinator: HomeViewControllerCoordinator {
+
+    func showMovies(of genre: String) {
+
+        let moviesByGenreCoordinator = MoviesByGenreCoordinator(withNavigationController: navigationController,
+                                                                genre: genre)
+        moviesByGenreCoordinator.start()
+
     }
 }

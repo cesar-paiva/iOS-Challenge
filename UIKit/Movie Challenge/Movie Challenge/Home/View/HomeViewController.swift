@@ -11,8 +11,9 @@ class HomeViewController: UIViewController {
 
     var collectionView: UICollectionView! = nil
     var viewModel: HomeViewModelProtocol
-    var dataSource: UICollectionViewDiffableDataSource<LayoutSection, SectionItem>?
-    var sections: [Section] = []
+    var dataSource: UICollectionViewDiffableDataSource<HomeLayoutSection, SectionItem>?
+    var sections = [Section<HomeLayoutSection>]()
+    var coordinator: HomeViewControllerCoordinator?
 
     var topMoviesRegistration: UICollectionView.CellRegistration<TopMoviesCollectionViewCell, SectionItem>!
     var allMoviesRegistration: UICollectionView.CellRegistration<MovieCollectionViewCell, SectionItem>!
@@ -49,6 +50,7 @@ class HomeViewController: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
+        collectionView.delegate = self
     }
 
     func createLayout() -> UICollectionViewLayout {
@@ -89,7 +91,7 @@ class HomeViewController: UIViewController {
 
         viewModel.topFiveMovies.bind { topFiveMovies in
             if let topFiveMovies = topFiveMovies, !topFiveMovies.isEmpty {
-                self.sections.append(Section("Top Five Rated", .topMovies, topFiveMovies))
+                self.sections.append(Section(title: "Top Five Rated", layout: .topMovies, items: topFiveMovies))
                 self.viewModel.fetchAllMovies()
                 self.setupDataSource()
             }
@@ -97,7 +99,7 @@ class HomeViewController: UIViewController {
 
         viewModel.allMovies.bind { allMovies in
             if let allMovies = allMovies, !allMovies.isEmpty {
-                self.sections.append(Section("Browse By All", .allMovies, allMovies))
+                self.sections.append(Section(title: "Browse By All", layout: .allMovies, items: allMovies))
                 self.viewModel.fetchGenres()
                 self.setupDataSource()
             }
@@ -105,7 +107,7 @@ class HomeViewController: UIViewController {
 
         viewModel.genres.bind { genres in
             if let genres = genres, !genres.isEmpty {
-                self.sections.append(Section("Browse By Genre", .genres, genres))
+                self.sections.append(Section(title: "Browse By Genre", layout: .genres, items: genres))
                 self.setupDataSource()
             }
         }
@@ -113,7 +115,7 @@ class HomeViewController: UIViewController {
 
     func setupDataSource() {
 
-        dataSource = UICollectionViewDiffableDataSource<LayoutSection, SectionItem>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<HomeLayoutSection, SectionItem>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: SectionItem) -> UICollectionViewCell? in
             guard let sectionIdentifier = self.dataSource?.snapshot().sectionIdentifier(containingItem: item) else {
                 return nil
@@ -137,7 +139,7 @@ class HomeViewController: UIViewController {
             }
         }
 
-        var snapshot = NSDiffableDataSourceSnapshot<LayoutSection, SectionItem>()
+        var snapshot = NSDiffableDataSourceSnapshot<HomeLayoutSection, SectionItem>()
         sections.forEach { section in
             snapshot.appendSections([section.layout])
             snapshot.appendItems(section.items)

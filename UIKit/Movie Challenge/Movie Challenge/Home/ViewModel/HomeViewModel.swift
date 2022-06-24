@@ -25,10 +25,10 @@ class HomeViewModel: HomeViewModelProtocol {
     var topFiveMovies = Bindable<[SectionItem]>([])
     var genres = Bindable<[SectionItem]>([])
     var error: String?
-    var moviesService: HomeServiceGetable
+    var moviesService: MoviesServiceGetable
     var genresService: GenresServiceGetable
 
-    init(moviesService: HomeServiceGetable = HomeService(),
+    init(moviesService: MoviesServiceGetable = MoviesService(),
          genresService: GenresServiceGetable = GenresService()) {
         self.moviesService = moviesService
         self.genresService = genresService

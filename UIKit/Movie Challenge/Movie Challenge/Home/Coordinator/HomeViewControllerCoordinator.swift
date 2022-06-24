@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol HomeViewControllerCoordinator {
+    func showMovies(of genre: String)
+}
