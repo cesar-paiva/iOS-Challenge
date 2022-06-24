@@ -7,4 +7,9 @@
 
 import Foundation
 
-typealias Section = (title: String, layout: LayoutSection, items: [SectionItem])
+struct Section<T> {
+
+    let title: String
+    let layout: T
+    let items: [SectionItem]
+}

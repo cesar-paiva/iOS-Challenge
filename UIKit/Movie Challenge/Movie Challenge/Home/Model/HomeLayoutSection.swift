@@ -1,5 +1,5 @@
 //
-//  LayoutSection.swift
+//  HomeLayoutSection.swift
 //  Movie Challenge
 //
 //  Created by Cesar Paiva on 23/06/22.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-enum LayoutSection: Int, Hashable {
+enum HomeLayoutSection: Int, Hashable {
     case topMovies
     case allMovies
     case genres
 }
 
-extension LayoutSection {
+extension HomeLayoutSection {
 
     func layoutSection(with layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         switch self {

@@ -1,5 +1,5 @@
 //
-//  HomeService.swift
+//  MoviesService.swift
 //  Movie Challenge
 //
 //  Created by Cesar Paiva on 23/06/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol HomeServiceGetable {
+protocol MoviesServiceGetable {
 
     func getTopFiveMovies(completion: @escaping(_ movies: [Movie],
                                                 _ error: String?) -> Void)
@@ -15,7 +15,7 @@ protocol HomeServiceGetable {
                                             _ error: String?) -> Void)
 }
 
-class HomeService: HomeServiceGetable {
+class MoviesService: MoviesServiceGetable {
 
     var movies = [Movie]()
 
