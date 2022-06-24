@@ -9,7 +9,8 @@ import Foundation
 
 protocol MoviesServiceGetable {
 
-    func getTopFiveMovies(completion: @escaping(_ movies: [Movie],
+    func getTopMovies(limit: Int,
+                      completion: @escaping(_ movies: [Movie],
                                                 _ error: String?) -> Void)
     func getAllMovies(completion: @escaping(_ movies: [Movie],
                                             _ error: String?) -> Void)
@@ -21,10 +22,11 @@ protocol MoviesServiceGetable {
 
 class MoviesService: MoviesServiceGetable {
 
-    func getTopFiveMovies(completion: @escaping(_ movies: [Movie],
+    func getTopMovies(limit: Int,
+                      completion: @escaping(_ movies: [Movie],
                                          _ error: String?) -> Void) {
 
-        let query = GetTopFiveMoviesQuery()
+        let query = GetTopMoviesQuery(limit: limit)
         var movies = [Movie]()
 
         Network.shared.apollo.fetch(query: query) { result in

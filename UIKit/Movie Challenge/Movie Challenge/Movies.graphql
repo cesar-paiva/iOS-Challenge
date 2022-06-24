@@ -1,5 +1,15 @@
-query GetTopFiveMovies {
-  movies(limit: 5, orderBy: "voteAverage", sort: DESC) {
+query GetTopMovies($limit: Int!) {
+  movies(limit: $limit, orderBy: "voteAverage", sort: DESC) {
+    __typename
+    title
+    releaseDate
+    voteAverage
+    posterPath
+  }
+}
+
+query GetMovies($limit: Int!) {
+  movies(limit: $limit, orderBy: "title") {
     __typename
     title
     releaseDate

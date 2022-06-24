@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
         setupCells()
         setupHeader()
         setupFooter()
-        viewModel.fetchTopFiveMovies()
+        viewModel.fetchTopMovies()
         bindData()
     }
 
@@ -89,9 +89,9 @@ class HomeViewController: UIViewController {
 
     func bindData() {
 
-        viewModel.topFiveMovies.bind { topFiveMovies in
-            if let topFiveMovies = topFiveMovies, !topFiveMovies.isEmpty {
-                self.sections.append(Section(title: "Top Five Rated", layout: .topMovies, items: topFiveMovies))
+        viewModel.topMovies.bind { topMovies in
+            if let topMovies = topMovies, !topMovies.isEmpty {
+                self.sections.append(Section(title: "Movies: Top \(self.viewModel.limit) Rated", layout: .topMovies, items: topMovies))
                 self.viewModel.fetchAllMovies()
                 self.setupDataSource()
             }
