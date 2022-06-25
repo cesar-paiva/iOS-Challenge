@@ -12,10 +12,11 @@ protocol HomeViewModelProtocol {
     var allMovies: Bindable<[SectionItem]> { get }
     var topMovies: Bindable<[SectionItem]> { get }
     var genres: Bindable<[SectionItem]> { get }
-    var limit: Int { get }
+    var topMoviesLimit: Int { get }
+    var moviesLimit: Int { get }
 
     func fetchTopMovies()
-    func fetchAllMovies()
+    func fetchMovies(limit: Int)
     func fetchGenres()
 
 }
@@ -28,7 +29,8 @@ class HomeViewModel: HomeViewModelProtocol {
     var error: String?
     var moviesService: MoviesServiceGetable
     var genresService: GenresServiceGetable
-    let limit = 5
+    let topMoviesLimit = 5
+    let moviesLimit = 15
 
     init(moviesService: MoviesServiceGetable = MoviesService(),
          genresService: GenresServiceGetable = GenresService()) {
@@ -38,7 +40,7 @@ class HomeViewModel: HomeViewModelProtocol {
 
     func fetchTopMovies() {
 
-        moviesService.getTopMovies(limit: limit) { movies, error in
+        moviesService.getTopMovies(limit: topMoviesLimit) { movies, error in
 
             let items = movies.map { movie in
                 return SectionItem(id: UUID(), title: movie.title, subtitle: movie.releaseDate, rating: movie.voteAverage, imageName: movie.posterPath)
@@ -49,9 +51,9 @@ class HomeViewModel: HomeViewModelProtocol {
         }
     }
 
-    func fetchAllMovies() {
+    func fetchMovies(limit: Int) {
 
-        moviesService.getAllMovies { movies, error in
+        moviesService.getMovies(limit: limit, completion: { movies, error in
 
             let items = movies.map { movie in
                 return SectionItem(id: UUID(), title: movie.title, subtitle: movie.releaseDate, rating: movie.voteAverage, imageName: movie.posterPath)
@@ -59,7 +61,7 @@ class HomeViewModel: HomeViewModelProtocol {
 
             self.allMovies.value = items
             self.error = error
-        }
+        })
     }
 
     func fetchGenres() {

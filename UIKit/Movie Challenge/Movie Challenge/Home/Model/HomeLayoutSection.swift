@@ -9,7 +9,7 @@ import UIKit
 
 enum HomeLayoutSection: Int, Hashable {
     case topMovies
-    case allMovies
+    case movies
     case genres
 }
 
@@ -31,7 +31,7 @@ extension HomeLayoutSection {
             section.supplementariesFollowContentInsets = false
             section.boundarySupplementaryItems = [supplementaryHeaderItem(), supplementaryFooterSeparatorItem()]
             return section
-        case .allMovies:
+        case .movies:
 
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
 

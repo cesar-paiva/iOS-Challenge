@@ -31,6 +31,11 @@ extension HomeCoordinator: HomeViewControllerCoordinator {
         let moviesByGenreCoordinator = MoviesByGenreCoordinator(withNavigationController: navigationController,
                                                                 genre: genre)
         moviesByGenreCoordinator.start()
+    }
 
+    func showAllMovies() {
+
+        let moviesCoordinator = MoviesCoordinator(withNavigationController: navigationController)
+        moviesCoordinator.start()
     }
 }

@@ -17,7 +17,7 @@ extension HomeViewController: UICollectionViewDelegate {
         switch section {
         case .topMovies:
             break
-        case .allMovies:
+        case .movies:
             break
         case .genres:
 

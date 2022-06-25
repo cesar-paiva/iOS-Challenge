@@ -13,5 +13,27 @@ class SectionHeaderTextReusableView: UICollectionReusableView {
         UINib(nibName: String(describing: Self.self), bundle: nil)
     }
         
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak private(set) var titleLabel: UILabel!
+    @IBOutlet weak private(set) var button: UIButton!
+
+    var action: (() -> Void)?
+
+    func setup(title: String,
+               isHiddenButton: Bool = true,
+               buttonTitle: String? = nil) {
+
+        titleLabel.text = title
+        button.isHidden = isHiddenButton
+        button.setTitle(buttonTitle, for: .normal)
+    }
+
+    @objc
+    func touchUpInside() {
+        action?()
+    }
+
+    func buttonActionHandler(action: @escaping () -> Void) {
+        self.action = action
+        button.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+    }
 }

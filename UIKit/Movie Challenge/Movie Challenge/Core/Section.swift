@@ -12,4 +12,6 @@ struct Section<T> {
     let title: String
     let layout: T
     let items: [SectionItem]
+    var isHiddenButton: Bool = true
+    var titleButton: String? = nil
 }

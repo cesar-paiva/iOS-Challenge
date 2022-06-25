@@ -12,6 +12,9 @@ protocol MoviesServiceGetable {
     func getTopMovies(limit: Int,
                       completion: @escaping(_ movies: [Movie],
                                                 _ error: String?) -> Void)
+    func getMovies(limit: Int,
+                   completion: @escaping(_ movies: [Movie],
+                                         _ error: String?) -> Void)
     func getAllMovies(completion: @escaping(_ movies: [Movie],
                                             _ error: String?) -> Void)
     func getMoviesByGenre(_ genre: String,
@@ -35,6 +38,29 @@ class MoviesService: MoviesServiceGetable {
 
               if let moviesData = graphQLResult.data?.movies {
 
+                  movies = moviesData.map({ Movie(title: $0?.title, releaseDate: $0?.releaseDate, voteAverage: $0?.voteAverage, posterPath: $0?.posterPath) })
+              }
+
+              completion(movies, nil)
+
+            case .failure(let error):
+              completion(movies, error.localizedDescription)
+          }
+        }
+    }
+
+    func getMovies(limit: Int,
+                   completion: @escaping(_ movies: [Movie],
+                                         _ error: String?) -> Void) {
+
+        let query = GetMoviesQuery(limit: limit)
+        var movies = [Movie]()
+
+        Network.shared.apollo.fetch(query: query) { result in
+          switch result {
+            case .success(let graphQLResult):
+
+              if let moviesData = graphQLResult.data?.movies {
                   movies = moviesData.map({ Movie(title: $0?.title, releaseDate: $0?.releaseDate, voteAverage: $0?.voteAverage, posterPath: $0?.posterPath) })
               }
 
