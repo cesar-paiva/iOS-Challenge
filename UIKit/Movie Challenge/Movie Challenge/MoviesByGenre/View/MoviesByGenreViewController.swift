@@ -15,7 +15,7 @@ class MoviesByGenreViewController: UIViewController {
     var sections = [Section<MoviesByGenreLayoutSection>]()
     var coordinator: MoviesByGenreCoordinator?
 
-    var movieByGenreRegistration: UICollectionView.CellRegistration<MovieByGenreCollectionViewCell, SectionItem>!
+    var movieByGenreRegistration: UICollectionView.CellRegistration<MoviesCollectionViewCell, SectionItem>!
     var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
     var footerRegistration: UICollectionView.SupplementaryRegistration<SeparatorCollectionReusableView>!
 
@@ -105,7 +105,7 @@ class MoviesByGenreViewController: UIViewController {
 
     func setupCells() {
 
-        movieByGenreRegistration = .init(cellNib: MovieByGenreCollectionViewCell.nib, handler: { (cell, _, item) in
+        movieByGenreRegistration = .init(cellNib: MoviesCollectionViewCell.nib, handler: { (cell, _, item) in
             cell.setup(withItem: item)
         })
     }

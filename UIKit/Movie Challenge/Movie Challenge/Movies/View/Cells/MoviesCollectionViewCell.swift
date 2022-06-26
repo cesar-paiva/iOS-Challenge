@@ -1,5 +1,5 @@
 //
-//  MovieByGenreCollectionViewCell.swift
+//  MoviesCollectionViewCell.swift
 //  Movie Challenge
 //
 //  Created by Cesar Paiva on 24/06/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieByGenreCollectionViewCell: UICollectionViewCell {
+class MoviesCollectionViewCell: UICollectionViewCell {
 
     static var nib: UINib {
         UINib(nibName: String(describing: Self.self), bundle: nil)
