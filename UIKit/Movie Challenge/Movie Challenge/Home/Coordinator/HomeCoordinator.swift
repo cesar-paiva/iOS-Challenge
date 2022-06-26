@@ -24,18 +24,22 @@ class HomeCoordinator: Coordinator {
     }
 }
 
-extension HomeCoordinator: HomeViewControllerCoordinator {
+extension HomeCoordinator {
 
     func showMovies(of genre: String) {
 
         let moviesByGenreCoordinator = MoviesByGenreCoordinator(withNavigationController: navigationController,
                                                                 genre: genre)
+        moviesByGenreCoordinator.parentCoordinator = self
+        childCoordinators.append(moviesByGenreCoordinator)
         moviesByGenreCoordinator.start()
     }
 
     func showAllMovies() {
 
         let moviesCoordinator = MoviesCoordinator(withNavigationController: navigationController)
+        moviesCoordinator.parentCoordinator = self
+        childCoordinators.append(moviesCoordinator)
         moviesCoordinator.start()
     }
 
@@ -43,6 +47,8 @@ extension HomeCoordinator: HomeViewControllerCoordinator {
 
         let movieDetailsCoordinator = MovieDetailsCoordinator(withNavigationController: navigationController,
                                                               movie: movie)
+        movieDetailsCoordinator.parentCoordinator = self
+        childCoordinators.append(movieDetailsCoordinator)
         movieDetailsCoordinator.start()
         
     }

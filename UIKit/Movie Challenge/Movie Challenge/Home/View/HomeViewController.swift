@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     var viewModel: HomeViewModelProtocol
     var dataSource: UICollectionViewDiffableDataSource<HomeLayoutSection, SectionItem>?
     var sections = [Section<HomeLayoutSection>]()
-    var coordinator: HomeViewControllerCoordinator?
+    var coordinator: HomeCoordinator?
 
     var topMoviesRegistration: UICollectionView.CellRegistration<TopMoviesCollectionViewCell, SectionItem>!
     var allMoviesRegistration: UICollectionView.CellRegistration<MovieCollectionViewCell, SectionItem>!

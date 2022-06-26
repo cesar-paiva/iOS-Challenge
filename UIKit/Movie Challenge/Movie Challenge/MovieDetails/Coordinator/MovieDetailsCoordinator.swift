@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol MovieDetailsCoordinatorProtocol: AnyObject {
-    func showMovieDetails(of movie: Movie)
-}
-
 class MovieDetailsCoordinator: Coordinator {
 
     weak var parentCoordinator: Coordinator?
@@ -28,6 +24,7 @@ class MovieDetailsCoordinator: Coordinator {
 
         let viewModel = MovieDetailsViewModel(movie: movie)
         let moviesViewController = MovieDetailsViewController(viewModel: viewModel)
+        moviesViewController.coordinator = self
         navigationController.pushViewController(moviesViewController, animated: true)
     }
 

@@ -5,7 +5,6 @@
 //  Created by Cesar Paiva on 24/06/22.
 //
 
-import Foundation
 import UIKit
 
 extension HomeViewController: UICollectionViewDelegate {
@@ -19,18 +18,19 @@ extension HomeViewController: UICollectionViewDelegate {
             break
         case .movies:
 
-            let item = sections[indexPath.section].items[indexPath.row]
-            let movie = Movie(id: item.id,
-                              title: item.title,
-                              voteAverage: item.rating,
-                              genres: item.genres,
-                              posterPath: item.imageURL,
-                              overview: item.overview,
-                              cast: item.cast,
-                              director: item.director,
-                              releaseDate: item.releaseDate)
+            if let item = dataSource?.itemIdentifier(for: indexPath) {
+                let movie = Movie(id: item.id,
+                                  title: item.title,
+                                  voteAverage: item.rating,
+                                  genres: item.genres,
+                                  posterPath: item.imageURL,
+                                  overview: item.overview,
+                                  cast: item.cast,
+                                  director: item.director,
+                                  releaseDate: item.releaseDate)
 
-            coordinator?.showMovieDetails(of: movie)
+                coordinator?.showMovieDetails(of: movie)
+            }
 
         case .genres:
 

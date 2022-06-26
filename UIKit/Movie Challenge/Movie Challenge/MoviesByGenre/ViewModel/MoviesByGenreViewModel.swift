@@ -36,7 +36,14 @@ class MoviesByGenreViewModel: MoviesByGenreViewModelProtocol {
             let items = movies?.map({ movie in
                 return SectionItem(id: movie.id,
                                    title: movie.title,
-                                   imageURL: movie.posterPath)
+                                   subtitle: movie.releaseDate,
+                                   rating: movie.voteAverage,
+                                   genres: movie.genres,
+                                   imageURL: movie.posterPath,
+                                   overview: movie.overview,
+                                   cast: movie.cast,
+                                   director: movie.director,
+                                   releaseDate: movie.releaseDate)
             })
 
             self.movies.value = items

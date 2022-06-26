@@ -13,10 +13,9 @@ class MoviesViewController: UIViewController {
     var collectionView: UICollectionView!
     var viewModel: MoviesViewModelProtocol
     var sections = [Section<MoviesByGenreLayoutSection>]()
+    var coordinator: MoviesCoordinator?
 
     var movieByGenreRegistration: UICollectionView.CellRegistration<MovieByGenreCollectionViewCell, SectionItem>!
-    var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
-    var footerRegistration: UICollectionView.SupplementaryRegistration<SeparatorCollectionReusableView>!
 
     override func viewDidLoad() {
 
@@ -28,6 +27,11 @@ class MoviesViewController: UIViewController {
         setupCells()
         viewModel.fetchAllMovies()
         bindData()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishShowMovies()
     }
 
     init(viewModel: MoviesViewModelProtocol = MoviesViewModel()) {
@@ -44,6 +48,7 @@ class MoviesViewController: UIViewController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
         view.addSubview(collectionView)
     }
 
@@ -59,18 +64,6 @@ class MoviesViewController: UIViewController {
         movieByGenreRegistration = .init(cellNib: MovieByGenreCollectionViewCell.nib, handler: { (cell, _, item) in
             cell.setup(withItem: item)
         })
-    }
-
-    func setupHeader() {
-
-        headerRegistration = .init(supplementaryNib: SectionHeaderTextReusableView.nib, elementKind: UICollectionView.elementKindSectionHeader, handler: { (header, _, indexPath) in
-            let title = self.sections[indexPath.section].title
-            header.titleLabel.text = title
-        })
-    }
-
-    func setupFooter() {
-        footerRegistration = .init(elementKind: UICollectionView.elementKindSectionFooter, handler: { (_, _, _) in })
     }
 
     func bindData() {
@@ -94,14 +87,6 @@ class MoviesViewController: UIViewController {
             switch sectionIdentifier {
             case .movies:
                 return collectionView.dequeueConfiguredReusableCell(using: self.movieByGenreRegistration, for: indexPath, item: item)
-            }
-        }
-
-        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            if kind == UICollectionView.elementKindSectionHeader {
-                return collectionView.dequeueConfiguredReusableSupplementary(using: self.headerRegistration, for: indexPath)
-            } else {
-                return collectionView.dequeueConfiguredReusableSupplementary(using: self.footerRegistration, for: indexPath)
             }
         }
 

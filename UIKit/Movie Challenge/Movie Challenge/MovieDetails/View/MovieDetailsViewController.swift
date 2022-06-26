@@ -13,7 +13,7 @@ class MovieDetailsViewController: UIViewController {
     var viewModel: MovieDetailsViewModelProtocol
     var dataSource: UICollectionViewDiffableDataSource<MovieDetailsLayoutSection, MoviesDetailsSectionItem>?
     var sections = [MovieDetailsSection]()
-    var coordinator: HomeViewControllerCoordinator?
+    var coordinator: MovieDetailsCoordinator?
 
     var movieDetailsRegistration: UICollectionView.CellRegistration<MovieDetailsCollectionViewCell, MoviesDetailsSectionItem>!
     var castRegistration: UICollectionView.CellRegistration<CastCollectionViewCell, MoviesDetailsSectionItem>!
@@ -30,6 +30,11 @@ class MovieDetailsViewController: UIViewController {
         setupHeader()
         setupFooter()
         setupSections()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishShowMovieDetails()
     }
 
     init(viewModel: MovieDetailsViewModelProtocol) {

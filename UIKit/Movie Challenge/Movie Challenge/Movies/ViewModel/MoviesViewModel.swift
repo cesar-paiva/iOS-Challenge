@@ -30,7 +30,16 @@ class MoviesViewModel: MoviesViewModelProtocol {
         moviesService.getAllMovies(completion: { movies, error in
 
             let items = movies?.map({ movie in
-                return SectionItem(id: movie.id, title: movie.title, imageURL: movie.posterPath)
+                return SectionItem(id: movie.id,
+                                   title: movie.title,
+                                   subtitle: movie.releaseDate,
+                                   rating: movie.voteAverage,
+                                   genres: movie.genres,
+                                   imageURL: movie.posterPath,
+                                   overview: movie.overview,
+                                   cast: movie.cast,
+                                   director: movie.director,
+                                   releaseDate: movie.releaseDate)
             })
 
             self.movies.value = items

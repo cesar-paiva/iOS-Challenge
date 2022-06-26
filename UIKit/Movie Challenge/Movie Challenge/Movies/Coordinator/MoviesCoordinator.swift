@@ -9,6 +9,7 @@ import UIKit
 
 class MoviesCoordinator: Coordinator {
 
+    weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
 
@@ -19,6 +20,23 @@ class MoviesCoordinator: Coordinator {
     func start() {
 
         let moviesViewController = MoviesViewController()
+        moviesViewController.coordinator = self
         navigationController.pushViewController(moviesViewController, animated: true)
+    }
+}
+
+extension MoviesCoordinator {
+
+    func showMovieDetails(of movie: Movie) {
+
+        let movieDetailsCoordinator = MovieDetailsCoordinator(withNavigationController: navigationController,
+                                                              movie: movie)
+        childCoordinators.append(movieDetailsCoordinator)
+        movieDetailsCoordinator.parentCoordinator = self
+        movieDetailsCoordinator.start()
+    }
+
+    func didFinishShowMovies() {
+        parentCoordinator?.childDidFinish(self)
     }
 }

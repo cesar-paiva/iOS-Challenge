@@ -13,6 +13,7 @@ class MoviesByGenreViewController: UIViewController {
     var collectionView: UICollectionView!
     var viewModel: MoviesByGenreViewModelProtocol
     var sections = [Section<MoviesByGenreLayoutSection>]()
+    var coordinator: MoviesByGenreCoordinator?
 
     var movieByGenreRegistration: UICollectionView.CellRegistration<MovieByGenreCollectionViewCell, SectionItem>!
     var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
@@ -30,6 +31,11 @@ class MoviesByGenreViewController: UIViewController {
         bindData()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishShowMovieByGenre()
+    }
+
     init(viewModel: MoviesByGenreViewModelProtocol) {
 
         self.viewModel = viewModel
@@ -44,6 +50,7 @@ class MoviesByGenreViewController: UIViewController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
         view.addSubview(collectionView)
     }
 
