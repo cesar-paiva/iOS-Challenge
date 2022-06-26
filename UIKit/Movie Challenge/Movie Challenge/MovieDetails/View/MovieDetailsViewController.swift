@@ -43,23 +43,12 @@ class MovieDetailsViewController: UIViewController {
     }
 
     func setupNavigationBar() {
-
         navigationItem.title = "Movie Details"
-
-        let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.configureWithOpaqueBackground()
-        standardAppearance.backgroundColor = .black
-        standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.standardAppearance = standardAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = standardAppearance
     }
 
     func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .black
         collectionView.showsVerticalScrollIndicator = false
         view.addSubview(collectionView)
     }
@@ -88,8 +77,6 @@ class MovieDetailsViewController: UIViewController {
 
             let title = self.sections[indexPath.section].title
             header.setup(title: title)
-            header.setupBackgroundColor(.black)
-            header.setupTitleColor(.white)
         })
     }
 

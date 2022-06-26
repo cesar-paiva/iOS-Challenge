@@ -31,13 +31,12 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAI-v6-PVS">
                                         <rect key="frame" x="0.0" y="117" width="109" height="32"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="lP7-AE-ZEz" secondAttribute="bottom" id="6dx-ND-Ddw"/>
                             <constraint firstItem="lP7-AE-ZEz" firstAttribute="leading" secondItem="VjF-Mu-85F" secondAttribute="leading" id="Io4-zS-fTA"/>
@@ -48,7 +47,6 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="VjF-Mu-85F" secondAttribute="trailing" id="IAQ-DD-58N"/>
                 <constraint firstAttribute="top" secondItem="VjF-Mu-85F" secondAttribute="top" id="SIR-Ii-D89"/>

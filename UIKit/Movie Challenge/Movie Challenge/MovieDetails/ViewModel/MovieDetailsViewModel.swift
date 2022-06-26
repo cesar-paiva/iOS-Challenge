@@ -43,6 +43,7 @@ class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
                                         title: movie.title,
                                         rating: rating,
                                         genres: genres,
+                                         director: movie.director?.name,
                                         imageURL: movie.posterPath,
                                         overview: movie.overview)]
     }

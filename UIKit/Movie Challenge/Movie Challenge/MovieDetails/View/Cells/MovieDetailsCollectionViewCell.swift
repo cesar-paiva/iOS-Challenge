@@ -18,6 +18,7 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var directorLabel: UILabel!
 
 
     override func awakeFromNib() {
@@ -33,6 +34,7 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
         titleLabel.text = item.title
         ratingLabel.text = item.rating
         genresLabel.text = item.genres
+        directorLabel.text = "Directed by \(item.director ?? String())"
         overviewLabel.text = item.overview
     }
 }

@@ -37,12 +37,4 @@ class SectionHeaderTextReusableView: UICollectionReusableView {
         self.action = action
         button.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
     }
-
-    func setupBackgroundColor(_ color: UIColor) {
-        contentView.backgroundColor = color
-    }
-
-    func setupTitleColor(_ color: UIColor) {
-        titleLabel.textColor = color
-    }
 }

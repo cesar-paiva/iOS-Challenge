@@ -14,6 +14,7 @@ struct MoviesDetailsSectionItem: Codable, Hashable {
     let title: String?
     let rating: String?
     let genres: String?
+    let director: String?
     let imageURL: String?
     let overview: String?
 
@@ -21,6 +22,7 @@ struct MoviesDetailsSectionItem: Codable, Hashable {
          title: String? = nil,
          rating: String? = nil,
          genres: String? = nil,
+         director: String? = nil,
          imageURL: String? = nil,
          overview: String? = nil) {
         self.uuid = uuid
@@ -28,6 +30,7 @@ struct MoviesDetailsSectionItem: Codable, Hashable {
         self.title = title
         self.rating = rating
         self.genres = genres
+        self.director = director
         self.imageURL = imageURL
         self.overview = overview
     }
