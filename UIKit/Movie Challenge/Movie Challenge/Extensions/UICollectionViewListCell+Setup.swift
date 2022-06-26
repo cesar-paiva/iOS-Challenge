@@ -14,10 +14,5 @@ extension UICollectionViewListCell {
         var content = defaultContentConfiguration()
         content.text = item.title
         contentConfiguration = content
-
-        let view = UIView()
-        view.backgroundColor = .clear
-
-        selectedBackgroundView = view
     }
 }
