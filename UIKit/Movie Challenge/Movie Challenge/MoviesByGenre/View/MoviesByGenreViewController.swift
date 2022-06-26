@@ -25,6 +25,7 @@ class MoviesByGenreViewController: UIViewController {
 
         title = "\(viewModel.genre) Movies"
 
+        setupNavigationItem()
         setupCollectionView()
         setupCells()
         viewModel.fetchMoviesByGenre(viewModel.genre)
@@ -44,6 +45,47 @@ class MoviesByGenreViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupNavigationItem() {
+
+        func createMenu() -> UIMenu {
+
+            let sortByTitleAction = UIAction(title: "Sort by title",
+                                             image: UIImage(systemName: "arrow.counterclockwise")) { [weak self] _ in
+
+                guard let self = self else { return }
+                self.sortDataSource(withItems: self.viewModel.sortByTitle())
+            }
+
+            let sortByRatingAction = UIAction(title: "Sort by rating",
+                                              image: UIImage(systemName: "arrow.counterclockwise")) { [weak self] _ in
+
+                guard let self = self else { return }
+                self.sortDataSource(withItems: self.viewModel.sortByRating())
+            }
+
+            let sortByReleaseDateAction = UIAction(title: "Sort by Release Date",
+                                                   image: UIImage(systemName: "arrow.counterclockwise")) { [weak self] _ in
+
+                guard let self = self else { return }
+                self.sortDataSource(withItems: self.viewModel.sortByReleaseDate())
+            }
+
+            let menu = UIMenu(title: "", children: [sortByTitleAction, sortByRatingAction, sortByReleaseDateAction])
+            return menu
+        }
+
+        let navItem = UIBarButtonItem(image: UIImage(systemName: "lineweight"), menu: createMenu())
+        navigationItem.rightBarButtonItem = navItem
+    }
+
+    func sortDataSource(withItems items: [SectionItem]) {
+
+        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
+        snapshot.appendSections([.movies])
+        snapshot.appendItems(items)
+        self.dataSource.apply(snapshot, animatingDifferences: false)
     }
 
     func setupCollectionView() {
