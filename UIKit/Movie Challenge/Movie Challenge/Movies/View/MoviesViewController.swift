@@ -14,6 +14,7 @@ class MoviesViewController: UIViewController {
     var viewModel: MoviesViewModelProtocol
     var sections = [Section<MoviesByGenreLayoutSection>]()
     var coordinator: MoviesCoordinator?
+    let searchBar = UISearchBar(frame: .zero)
 
     var movieByGenreRegistration: UICollectionView.CellRegistration<MoviesCollectionViewCell, SectionItem>!
 
@@ -87,11 +88,28 @@ class MoviesViewController: UIViewController {
     }
 
     func setupCollectionView() {
+
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         view.addSubview(collectionView)
+        view.addSubview(searchBar)
+
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalToSystemSpacingBelow: view.safeAreaLayoutGuide.topAnchor, multiplier: 1.0),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        searchBar.placeholder = "Search by title or director"
+        searchBar.delegate = self
     }
 
     func createLayout() -> UICollectionViewLayout {
@@ -141,5 +159,13 @@ class MoviesViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
+    func performQuery(with text: String) {
 
+        let movies = viewModel.filteredMovies(with: text).sorted { $0.title ?? String() < $1.title ?? String() }
+
+        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
+        snapshot.appendSections([.movies])
+        snapshot.appendItems(movies)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
 }

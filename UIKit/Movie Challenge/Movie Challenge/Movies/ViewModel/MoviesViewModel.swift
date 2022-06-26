@@ -10,11 +10,12 @@ import Foundation
 protocol MoviesViewModelProtocol {
 
     var movies: Bindable<[SectionItem]> { get }
+
+    func fetchAllMovies()
     func sortByTitle() -> [SectionItem]
     func sortByRating() -> [SectionItem]
     func sortByReleaseDate() -> [SectionItem]
-
-    func fetchAllMovies()
+    func filteredMovies(with text: String) -> [SectionItem]
 
 }
 
@@ -80,6 +81,17 @@ class MoviesViewModel: MoviesViewModelProtocol {
 
         return movies.sorted(by: {
             $0.releaseDate ?? String() > $1.releaseDate ?? String()
+        })
+    }
+
+    func filteredMovies(with text: String) -> [SectionItem] {
+
+        guard let movies = movies.value else {
+            return []
+        }
+
+        return movies.filter({
+            $0.contains(text)
         })
     }
 }

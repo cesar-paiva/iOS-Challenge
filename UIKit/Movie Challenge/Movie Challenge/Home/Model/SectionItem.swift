@@ -50,4 +50,11 @@ struct SectionItem: Codable, Hashable {
         hasher.combine(id)
         hasher.combine(title)
     }
+
+    func contains(_ text: String?) -> Bool {
+        guard let text = text else { return true }
+        if text.isEmpty { return true }
+        let lowercasedFilter = text.lowercased()
+        return title?.lowercased().contains(lowercasedFilter) ?? false || director?.name?.lowercased().contains(lowercasedFilter) ?? false
+    }
 }
