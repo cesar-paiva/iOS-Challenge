@@ -10,4 +10,5 @@ import Foundation
 protocol HomeViewControllerCoordinator {
     func showMovies(of genre: String)
     func showAllMovies()
+    func showMovieDetails(of movie: Movie)
 }

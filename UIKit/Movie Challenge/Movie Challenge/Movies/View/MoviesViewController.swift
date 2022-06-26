@@ -33,8 +33,7 @@ class MoviesViewController: UIViewController {
     init(viewModel: MoviesViewModelProtocol = MoviesViewModel()) {
 
         self.viewModel = viewModel
-        super.init(nibName: String(describing: HomeViewController.self),
-                   bundle: Bundle(for: type(of: self)))
+        super.init(nibName:nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -78,7 +77,7 @@ class MoviesViewController: UIViewController {
 
         viewModel.movies.bind { movies in
             if let movies = movies, !movies.isEmpty {
-                self.sections.append(Section(title: String(), layout: .main, items: movies))
+                self.sections.append(Section(title: String(), layout: .movies, items: movies))
                 self.setupDataSource()
             }
         }
@@ -93,7 +92,7 @@ class MoviesViewController: UIViewController {
             }
 
             switch sectionIdentifier {
-            case .main:
+            case .movies:
                 return collectionView.dequeueConfiguredReusableCell(using: self.movieByGenreRegistration, for: indexPath, item: item)
             }
         }

@@ -18,7 +18,20 @@ extension HomeViewController: UICollectionViewDelegate {
         case .topMovies:
             break
         case .movies:
-            break
+
+            let item = sections[indexPath.section].items[indexPath.row]
+            let movie = Movie(id: item.id,
+                              title: item.title,
+                              voteAverage: item.rating,
+                              genres: item.genres,
+                              posterPath: item.imageURL,
+                              overview: item.overview,
+                              cast: item.cast,
+                              director: item.director,
+                              releaseDate: item.releaseDate)
+
+            coordinator?.showMovieDetails(of: movie)
+
         case .genres:
 
             if let genre = sections[indexPath.section].items[indexPath.row].title {

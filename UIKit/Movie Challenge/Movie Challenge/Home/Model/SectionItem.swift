@@ -9,29 +9,45 @@ import Foundation
 
 struct SectionItem: Codable, Hashable {
 
-    let id: UUID
+    let uuid: UUID
+    let id: Int?
     let title: String?
     let subtitle: String?
     let rating: Double?
-    let imageName: String?
+    let genres: [String]?
+    let imageURL: String?
+    let overview: String?
+    let cast: [Cast]?
+    let director: Director?
+    let releaseDate: String?
 
-    init(id: UUID, title: String? = nil, subtitle: String? = nil, rating: Double? = nil, imageName: String? = nil) {
+    init(id: Int? = nil,
+         title: String? = nil,
+         subtitle: String? = nil,
+         rating: Double? = nil,
+         genres: [String]? = nil,
+         imageURL: String? = nil,
+         overview: String? = nil,
+         cast: [Cast]? = nil,
+         director: Director? = nil,
+         releaseDate: String? = nil) {
+
+        self.uuid = UUID()
         self.id = id
         self.title = title
         self.subtitle = subtitle
         self.rating = rating
-        self.imageName = imageName
+        self.genres = genres
+        self.imageURL = imageURL
+        self.overview = overview
+        self.cast = cast
+        self.director = director
+        self.releaseDate = releaseDate
     }
 
     func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
         hasher.combine(id)
+        hasher.combine(title)
     }
-
-    static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id &&
-            lhs.title == rhs.title &&
-            lhs.subtitle == rhs.subtitle &&
-            lhs.imageName == rhs.imageName
-    }
-
 }

@@ -52,6 +52,7 @@
             </constraints>
             <connections>
                 <outlet property="button" destination="mxo-kx-2Sn" id="xfT-qM-yqT"/>
+                <outlet property="contentView" destination="CIj-Fa-MW6" id="DVT-4e-5C2"/>
                 <outlet property="titleLabel" destination="OWh-Jw-2jV" id="sTR-9F-WoG"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="66.964285714285708"/>

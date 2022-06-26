@@ -23,7 +23,7 @@ class MovieByGenreCollectionViewCell: UICollectionViewCell {
     func setup(withItem item: SectionItem) {
         titleLabel.text = item.title
 
-        if let url = item.imageName {
+        if let url = item.imageURL {
             imageView.loadFrom(url: url)
         }
     }

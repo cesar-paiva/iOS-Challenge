@@ -41,10 +41,20 @@ class HomeViewModel: HomeViewModelProtocol {
     func fetchTopMovies() {
 
         moviesService.getTopMovies(limit: topMoviesLimit) { movies, error in
+            
 
-            let items = movies.map { movie in
-                return SectionItem(id: UUID(), title: movie.title, subtitle: movie.releaseDate, rating: movie.voteAverage, imageName: movie.posterPath)
-            }
+            let items = movies?.map({ movie in
+                return SectionItem(id: movie.id,
+                                   title: movie.title,
+                                   subtitle: movie.releaseDate,
+                                   rating: movie.voteAverage,
+                                   genres: movie.genres,
+                                   imageURL: movie.posterPath,
+                                   overview: movie.overview,
+                                   cast: movie.cast,
+                                   director: movie.director,
+                                   releaseDate: movie.releaseDate)
+            })
 
             self.topMovies.value = items
             self.error = error
@@ -55,9 +65,18 @@ class HomeViewModel: HomeViewModelProtocol {
 
         moviesService.getMovies(limit: limit, completion: { movies, error in
 
-            let items = movies.map { movie in
-                return SectionItem(id: UUID(), title: movie.title, subtitle: movie.releaseDate, rating: movie.voteAverage, imageName: movie.posterPath)
-            }
+            let items = movies?.map({ movie in
+                return SectionItem(id: movie.id,
+                                   title: movie.title,
+                                   subtitle: movie.releaseDate,
+                                   rating: movie.voteAverage,
+                                   genres: movie.genres,
+                                   imageURL: movie.posterPath,
+                                   overview: movie.overview,
+                                   cast: movie.cast,
+                                   director: movie.director,
+                                   releaseDate: movie.releaseDate)
+            })
 
             self.allMovies.value = items
             self.error = error
@@ -68,9 +87,11 @@ class HomeViewModel: HomeViewModelProtocol {
 
         genresService.getGenres { genres, error in
 
-            let items = genres.map { genre in
-                return SectionItem(id: UUID(), title: genre)
-            }
+            var items = [SectionItem]()
+
+            genres?.forEach({ genre in
+                items.append(SectionItem(title: genre))
+            })
 
             self.genres.value = items
             self.error = error

@@ -8,7 +8,7 @@
 import UIKit
 
 enum MoviesByGenreLayoutSection: Hashable {
-    case main
+    case movies
 }
 
 extension MoviesByGenreLayoutSection {
@@ -16,7 +16,7 @@ extension MoviesByGenreLayoutSection {
     func layoutSection(with layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
         switch self {
 
-        case .main:
+        case .movies:
 
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                  heightDimension: .fractionalHeight(1.0))

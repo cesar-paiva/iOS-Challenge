@@ -38,4 +38,12 @@ extension HomeCoordinator: HomeViewControllerCoordinator {
         let moviesCoordinator = MoviesCoordinator(withNavigationController: navigationController)
         moviesCoordinator.start()
     }
+
+    func showMovieDetails(of movie: Movie) {
+
+        let movieDetailsCoordinator = MovieDetailsCoordinator(withNavigationController: navigationController,
+                                                              movie: movie)
+        movieDetailsCoordinator.start()
+        
+    }
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CastCollectionViewCell" customModule="Movie_Challenge" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="109" height="149"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="109" height="149"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VjF-Mu-85F">
+                        <rect key="frame" x="0.0" y="0.0" width="109" height="149"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lP7-AE-ZEz">
+                                <rect key="frame" x="0.0" y="0.0" width="109" height="149"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zY8-af-r5R" customClass="RoundedImageView" customModule="AppStoreCompositionalLayout" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="109" height="109"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="zY8-af-r5R" secondAttribute="height" multiplier="1:1" id="Acg-Ug-7jf"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAI-v6-PVS">
+                                        <rect key="frame" x="0.0" y="117" width="109" height="32"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="lP7-AE-ZEz" secondAttribute="bottom" id="6dx-ND-Ddw"/>
+                            <constraint firstItem="lP7-AE-ZEz" firstAttribute="leading" secondItem="VjF-Mu-85F" secondAttribute="leading" id="Io4-zS-fTA"/>
+                            <constraint firstItem="lP7-AE-ZEz" firstAttribute="top" secondItem="VjF-Mu-85F" secondAttribute="top" id="Iwh-wF-gxB"/>
+                            <constraint firstAttribute="trailing" secondItem="lP7-AE-ZEz" secondAttribute="trailing" id="NUv-Ql-Cr2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="VjF-Mu-85F" secondAttribute="trailing" id="IAQ-DD-58N"/>
+                <constraint firstAttribute="top" secondItem="VjF-Mu-85F" secondAttribute="top" id="SIR-Ii-D89"/>
+                <constraint firstAttribute="bottom" secondItem="VjF-Mu-85F" secondAttribute="bottom" id="TNH-gF-fns"/>
+                <constraint firstItem="VjF-Mu-85F" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="aIu-gR-6Oi"/>
+            </constraints>
+            <size key="customSize" width="109" height="149"/>
+            <connections>
+                <outlet property="imageView" destination="zY8-af-r5R" id="1rn-LE-3DH"/>
+                <outlet property="textLabel" destination="gAI-v6-PVS" id="YXx-hH-j0p"/>
+            </connections>
+            <point key="canvasLocation" x="180.43478260869566" y="146.98660714285714"/>
+        </collectionViewCell>
+    </objects>
+</document>

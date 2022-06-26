@@ -34,11 +34,20 @@ class HomeViewController: UIViewController {
         bindData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.configureWithOpaqueBackground()
+        standardAppearance.backgroundColor = .white
+
+        navigationController?.navigationBar.standardAppearance = standardAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = standardAppearance
+    }
+
     init(viewModel: HomeViewModelProtocol = HomeViewModel()) {
 
         self.viewModel = viewModel
-        super.init(nibName: String(describing: Self.self),
-                   bundle: Bundle(for: type(of: self)))
+        super.init(nibName: nil, bundle:nil)
     }
 
     required init?(coder: NSCoder) {

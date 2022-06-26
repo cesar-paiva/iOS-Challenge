@@ -1,37 +1,79 @@
 query GetTopMovies($limit: Int!) {
   movies(limit: $limit, orderBy: "voteAverage", sort: DESC) {
     __typename
+        id
     title
-    releaseDate
     voteAverage
+    genres
     posterPath
+    overview
+    releaseDate
+    cast {
+      profilePath
+      name
+        }
+    director {
+      name
+    }
   }
 }
 
 query GetMovies($limit: Int!) {
   movies(limit: $limit, orderBy: "title") {
     __typename
+    id
     title
-    releaseDate
     voteAverage
+    genres
     posterPath
+    overview
+    releaseDate
+    cast {
+      profilePath
+      name
+        }
+    director {
+      name
+    }
   }
 }
 
 query GetAllMovies {
   movies(orderBy: "title") {
     __typename
+    id
     title
-    releaseDate
     voteAverage
+    genres
     posterPath
+    overview
+    releaseDate
+    cast {
+      profilePath
+      name
+        }
+    director {
+      name
+    }
   }
 }
 
 query GetMoviesByGenre($genre: String!) {
   movies(genre: $genre, orderBy: "title") {
     __typename
+    id
     title
+    voteAverage
+    genres
     posterPath
+    overview
+    releaseDate
+    cast {
+      profilePath
+      name
+        }
+    director {
+      name
+    }
   }
 }

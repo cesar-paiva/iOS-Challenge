@@ -9,6 +9,7 @@ import Foundation
 
 struct MovieByGenre: Codable {
 
+    let id: Int?
     let title: String?
     let posterPath: String?
 }

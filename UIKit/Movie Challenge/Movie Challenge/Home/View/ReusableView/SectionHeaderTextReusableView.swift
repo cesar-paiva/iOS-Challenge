@@ -15,6 +15,7 @@ class SectionHeaderTextReusableView: UICollectionReusableView {
         
     @IBOutlet weak private(set) var titleLabel: UILabel!
     @IBOutlet weak private(set) var button: UIButton!
+    @IBOutlet weak private(set) var contentView: UIView!
 
     var action: (() -> Void)?
 
@@ -35,5 +36,13 @@ class SectionHeaderTextReusableView: UICollectionReusableView {
     func buttonActionHandler(action: @escaping () -> Void) {
         self.action = action
         button.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+    }
+
+    func setupBackgroundColor(_ color: UIColor) {
+        contentView.backgroundColor = color
+    }
+
+    func setupTitleColor(_ color: UIColor) {
+        titleLabel.textColor = color
     }
 }

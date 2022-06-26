@@ -29,9 +29,9 @@ class MoviesViewModel: MoviesViewModelProtocol {
 
         moviesService.getAllMovies(completion: { movies, error in
 
-            let items = movies.map { movie in
-                return SectionItem(id: UUID(), title: movie.title, imageName: movie.posterPath)
-            }
+            let items = movies?.map({ movie in
+                return SectionItem(id: movie.id, title: movie.title, imageURL: movie.posterPath)
+            })
 
             self.movies.value = items
             self.error = error
