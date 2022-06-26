@@ -26,7 +26,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
 
         titleLabel.text = item.title
         subtitleLabel.text = item.subtitle?.prefix(4).description
-        
+
         if let url = item.imageURL {
             imageView.loadFrom(url: url)
         }
