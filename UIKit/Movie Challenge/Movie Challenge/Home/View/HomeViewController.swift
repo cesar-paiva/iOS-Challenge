@@ -97,6 +97,12 @@ class HomeViewController: UIViewController {
 
         topMoviesRegistration = .init(cellNib: TopMoviesCollectionViewCell.nib, handler: { (cell, _, item) in
             cell.setup(withItem: item)
+            cell.touchOnImageActionHandler {
+
+                if let imageURL = item.imageURL {
+                    self.presentModal(withImageURL: imageURL)
+                }
+            }
         })
 
         allMoviesRegistration = .init(cellNib: MovieCollectionViewCell.nib, handler: { (cell, _, item) in

@@ -60,6 +60,7 @@
 		90985AE62867A13500824D9B /* MovieDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90985AE52867A13500824D9B /* MovieDetailsCollectionViewCell.xib */; };
 		90985AEA286848E500824D9B /* MoviesViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AE9286848E500824D9B /* MoviesViewController+UICollectionViewDelegate.swift */; };
 		90985AEE2868A6D500824D9B /* MoviesByGenreViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AED2868A6D500824D9B /* MoviesByGenreViewController+UICollectionViewDelegate.swift */; };
+		90985AF02868C9DD00824D9B /* UIViewController+Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AEF2868C9DC00824D9B /* UIViewController+Modal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +117,7 @@
 		90985AE52867A13500824D9B /* MovieDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
 		90985AE9286848E500824D9B /* MoviesViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		90985AED2868A6D500824D9B /* MoviesByGenreViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesByGenreViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
+		90985AEF2868C9DC00824D9B /* UIViewController+Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Modal.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +273,7 @@
 			children = (
 				90213C5728657123006435B9 /* UICollectionViewListCell+Setup.swift */,
 				90213C3428656A2E006435B9 /* UIImageView+Load.swift */,
+				90985AEF2868C9DC00824D9B /* UIViewController+Modal.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				90213C5228656CAC006435B9 /* HomeViewModel.swift in Sources */,
 				90911F692865FE57003C573E /* MoviesByGenreLayoutSection.swift in Sources */,
 				90911F672865F55B003C573E /* MovieByGenre.swift in Sources */,
+				90985AF02868C9DD00824D9B /* UIViewController+Modal.swift in Sources */,
 				3284FFD6275B0CEA0039F3EB /* Movies.graphql.swift in Sources */,
 				90985AD82867847B00824D9B /* MovieDetailsLayoutSection.swift in Sources */,
 				90213C3E28656A2E006435B9 /* TopMoviesCollectionViewCell.swift in Sources */,

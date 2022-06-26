@@ -17,6 +17,8 @@ class TopMoviesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
 
+    var action: (() -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.layer.cornerRadius = 8
@@ -31,6 +33,18 @@ class TopMoviesCollectionViewCell: UICollectionViewCell {
         if let url = item.imageURL {
             imageView.loadFrom(url: url)
         }
+    }
+
+    @objc
+    func touchUpInside() {
+        action?()
+    }
+
+    func touchOnImageActionHandler(action: @escaping () -> Void) {
+        self.action = action
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(touchUpInside))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        imageView.isUserInteractionEnabled = true
     }
 
 }
