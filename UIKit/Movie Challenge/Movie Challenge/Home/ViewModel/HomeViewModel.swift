@@ -41,21 +41,10 @@ class HomeViewModel: HomeViewModelProtocol {
     func fetchTopMovies() {
 
         moviesService.getTopMovies(limit: topMoviesLimit) { movies, error in
-            
 
             let items = movies?.map({ movie in
-                return SectionItem(id: movie.id,
-                                   title: movie.title,
-                                   subtitle: movie.releaseDate,
-                                   rating: movie.voteAverage,
-                                   genres: movie.genres,
-                                   imageURL: movie.posterPath,
-                                   overview: movie.overview,
-                                   cast: movie.cast,
-                                   director: movie.director,
-                                   releaseDate: movie.releaseDate)
+                return self.sectionItem(with: movie)
             })
-
             self.topMovies.value = items
             self.error = error
         }
@@ -66,18 +55,8 @@ class HomeViewModel: HomeViewModelProtocol {
         moviesService.getMovies(limit: limit, completion: { movies, error in
 
             let items = movies?.map({ movie in
-                return SectionItem(id: movie.id,
-                                   title: movie.title,
-                                   subtitle: movie.releaseDate,
-                                   rating: movie.voteAverage,
-                                   genres: movie.genres,
-                                   imageURL: movie.posterPath,
-                                   overview: movie.overview,
-                                   cast: movie.cast,
-                                   director: movie.director,
-                                   releaseDate: movie.releaseDate)
+                return self.sectionItem(with: movie)
             })
-
             self.allMovies.value = items
             self.error = error
         })
@@ -92,10 +71,21 @@ class HomeViewModel: HomeViewModelProtocol {
             genres?.forEach({ genre in
                 items.append(SectionItem(title: genre))
             })
-
             self.genres.value = items
             self.error = error
         }
+    }
 
+    func sectionItem(with movie: Movie) -> SectionItem {
+        return SectionItem(id: movie.id,
+                           title: movie.title,
+                           subtitle: movie.releaseDate,
+                           rating: movie.voteAverage,
+                           genres: movie.genres,
+                           imageURL: movie.posterPath,
+                           overview: movie.overview,
+                           cast: movie.cast,
+                           director: movie.director,
+                           releaseDate: movie.releaseDate)
     }
 }

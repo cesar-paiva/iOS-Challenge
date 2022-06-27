@@ -18,28 +18,8 @@ query GetTopMovies($limit: Int!) {
   }
 }
 
-query GetMovies($limit: Int!) {
+query GetMovies($limit: Int) {
   movies(limit: $limit, orderBy: "title") {
-    __typename
-    id
-    title
-    voteAverage
-    genres
-    posterPath
-    overview
-    releaseDate
-    cast {
-      profilePath
-      name
-        }
-    director {
-      name
-    }
-  }
-}
-
-query GetAllMovies {
-  movies(orderBy: "title") {
     __typename
     id
     title

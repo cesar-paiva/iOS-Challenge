@@ -31,7 +31,7 @@ class MoviesViewModel: MoviesViewModelProtocol {
 
     func fetchAllMovies() {
 
-        moviesService.getAllMovies(completion: { movies, error in
+        moviesService.getMovies(limit: nil, completion: { movies, error in
 
             let items = movies?.map({ movie in
                 return SectionItem(id: movie.id,
