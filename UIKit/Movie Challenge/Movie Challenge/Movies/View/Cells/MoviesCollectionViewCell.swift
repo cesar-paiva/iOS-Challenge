@@ -7,11 +7,7 @@
 
 import UIKit
 
-class MoviesCollectionViewCell: UICollectionViewCell {
-
-    static var nib: UINib {
-        UINib(nibName: String(describing: Self.self), bundle: nil)
-    }
+class MoviesCollectionViewCell: UICollectionViewCell, NibLoadable {
 
     @IBOutlet weak var imageView: CacheableImageView!
     @IBOutlet weak var titleLabel: UILabel!

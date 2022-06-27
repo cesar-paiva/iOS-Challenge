@@ -7,12 +7,8 @@
 
 import UIKit
 
-class SectionHeaderTextReusableView: UICollectionReusableView {
+class SectionHeaderTextReusableView: UICollectionReusableView, NibLoadable {
     
-    static var nib: UINib {
-        UINib(nibName: String(describing: Self.self), bundle: nil)
-    }
-        
     @IBOutlet weak private(set) var titleLabel: UILabel!
     @IBOutlet weak private(set) var button: UIButton!
     @IBOutlet weak private(set) var contentView: UIView!

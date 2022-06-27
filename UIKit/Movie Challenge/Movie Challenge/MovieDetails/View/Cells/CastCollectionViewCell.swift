@@ -7,11 +7,7 @@
 
 import UIKit
 
-class CastCollectionViewCell: UICollectionViewCell {
-
-    static var nib: UINib {
-        UINib(nibName: String(describing: Self.self), bundle: nil)
-    }
+class CastCollectionViewCell: UICollectionViewCell, NibLoadable {
 
     @IBOutlet weak var imageView: RoundedImageView!
     @IBOutlet weak var textLabel: UILabel!

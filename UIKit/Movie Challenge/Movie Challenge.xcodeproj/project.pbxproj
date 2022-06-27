@@ -62,6 +62,7 @@
 		90985AF02868C9DD00824D9B /* UIViewController+Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AEF2868C9DC00824D9B /* UIViewController+Modal.swift */; };
 		90985AF22868F3DF00824D9B /* CacheableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AF12868F3DE00824D9B /* CacheableImageView.swift */; };
 		90985AF528690BE700824D9B /* MoviesViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AF428690BE700824D9B /* MoviesViewController+UISearchBarDelegate.swift */; };
+		90985AF728694F2200824D9B /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90985AF628694F2200824D9B /* NibLoadable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		90985AEF2868C9DC00824D9B /* UIViewController+Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Modal.swift"; sourceTree = "<group>"; };
 		90985AF12868F3DE00824D9B /* CacheableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableImageView.swift; sourceTree = "<group>"; };
 		90985AF428690BE700824D9B /* MoviesViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviesViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
+		90985AF628694F2200824D9B /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +269,7 @@
 				90213C3228656A2D006435B9 /* AppDelegate.swift */,
 				90213C1E28656A2D006435B9 /* Section.swift */,
 				90985AF12868F3DE00824D9B /* CacheableImageView.swift */,
+				90985AF628694F2200824D9B /* NibLoadable.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				90911F692865FE57003C573E /* MoviesByGenreLayoutSection.swift in Sources */,
 				90985AF02868C9DD00824D9B /* UIViewController+Modal.swift in Sources */,
 				3284FFD6275B0CEA0039F3EB /* Movies.graphql.swift in Sources */,
+				90985AF728694F2200824D9B /* NibLoadable.swift in Sources */,
 				90985AD82867847B00824D9B /* MovieDetailsLayoutSection.swift in Sources */,
 				90213C3E28656A2E006435B9 /* TopMoviesCollectionViewCell.swift in Sources */,
 				90911F822866BDD6003C573E /* MovieDetailsViewModel.swift in Sources */,
