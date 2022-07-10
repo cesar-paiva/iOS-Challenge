@@ -1,4 +1,4 @@
-# iOS Base Project for Podium Take-Home Challenge
+# iOS Base Project
 
 ## Introduction
 We have provided two version of this base project: one using UIKit, one using SwiftUI. They are extremely bare-bones, with a simple example of how to interact with the GraphQL endpoint in the `viewDidLoad` or `.onAppear` of the main view of the app. You can create your own project if you'd like, but we recommend forking this repository and building on top of one of the provided projects to avoid issues with Apollo.
@@ -25,7 +25,7 @@ query GetMoviesQuery {
 
 As you work on this take-home challenge, you will need to expand upon this to create your own `.graphql` files to customize the data available to display in the app. Each time you build the app, Apollo will automatically run the code necessary to generate code from your `graphql` files. Make sure to build when you make any changes otherwise you won't be able to access those changes in your code. 
 
-You can explore more of what is possible with going to the endpoint in a browser or using a GraphQL client by accessing this endpoint: https://podium-fe-challenge-2021.netlify.app/.netlify/functions/graphql and viewing the schema via what is called `introspection`. For example, if you click on that link, it will open a playground where you can practice using the available queries. On the right side of the screen there are buttons labeled `docs` and `schema`. The docs will tell you definitions of the available model. The schema will tell you what queries are available. 
+You can explore more of what is possible with going to the endpoint in a browser or using a GraphQL client by accessing the endpoint that is in `Network` class in project and viewing the schema via what is called `introspection`. For example, if you click on that link, it will open a playground where you can practice using the available queries. On the right side of the screen there are buttons labeled `docs` and `schema`. The docs will tell you definitions of the available model. The schema will tell you what queries are available. 
 
 > **Note**: 
 >
