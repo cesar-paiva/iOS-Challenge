@@ -9,19 +9,19 @@ import Foundation
 
 protocol MoviesViewModelProtocol {
 
-    var movies: Bindable<[SectionItem]> { get }
+    var movies: Bindable<[Movie]> { get }
 
     func fetchAllMovies()
-    func sortByTitle() -> [SectionItem]
-    func sortByRating() -> [SectionItem]
-    func sortByReleaseDate() -> [SectionItem]
-    func filteredMovies(with text: String) -> [SectionItem]
+    func sortByTitle() -> [Movie]
+    func sortByRating() -> [Movie]
+    func sortByReleaseDate() -> [Movie]
+    func filteredMovies(with text: String) -> [Movie]
 
 }
 
 class MoviesViewModel: MoviesViewModelProtocol {
 
-    var movies: Bindable<[SectionItem]> = Bindable<[SectionItem]>([])
+    var movies: Bindable<[Movie]> = Bindable<[Movie]>([])
     var error: String?
     var moviesService: MoviesServiceGetable
 
@@ -33,25 +33,12 @@ class MoviesViewModel: MoviesViewModelProtocol {
 
         moviesService.getMovies(limit: nil, completion: { movies, error in
 
-            let items = movies?.map({ movie in
-                return SectionItem(id: movie.id,
-                                   title: movie.title,
-                                   subtitle: movie.releaseDate,
-                                   rating: movie.voteAverage,
-                                   genres: movie.genres,
-                                   imageURL: movie.posterPath,
-                                   overview: movie.overview,
-                                   cast: movie.cast,
-                                   director: movie.director,
-                                   releaseDate: movie.releaseDate)
-            })
-
-            self.movies.value = items
+            self.movies.value = movies
             self.error = error
         })
     }
 
-    func sortByTitle() -> [SectionItem] {
+    func sortByTitle() -> [Movie] {
 
         guard let movies = movies.value else {
             return []
@@ -62,18 +49,18 @@ class MoviesViewModel: MoviesViewModelProtocol {
         })
     }
 
-    func sortByRating() -> [SectionItem] {
+    func sortByRating() -> [Movie] {
 
         guard let movies = movies.value else {
             return []
         }
 
        return movies.sorted(by: {
-            $0.rating ?? 0 > $1.rating ?? 0
+           $0.voteAverage ?? 0 > $1.voteAverage ?? 0
         })
     }
 
-    func sortByReleaseDate() -> [SectionItem] {
+    func sortByReleaseDate() -> [Movie] {
 
         guard let movies = movies.value else {
             return []
@@ -84,7 +71,7 @@ class MoviesViewModel: MoviesViewModelProtocol {
         })
     }
 
-    func filteredMovies(with text: String) -> [SectionItem] {
+    func filteredMovies(with text: String) -> [Movie] {
 
         guard let movies = movies.value else {
             return []

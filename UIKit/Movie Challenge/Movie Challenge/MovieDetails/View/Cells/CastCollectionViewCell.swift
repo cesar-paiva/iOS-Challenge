@@ -12,12 +12,12 @@ class CastCollectionViewCell: UICollectionViewCell, NibLoadable {
     @IBOutlet weak var imageView: RoundedImageView!
     @IBOutlet weak var textLabel: UILabel!
 
-    func setup(withItem item: MoviesDetailsSectionItem) {
+    func setup(withCast cast: Cast) {
 
-        if let url = item.imageURL {
+        if let url = cast.profilePath {
             imageView.loadFrom(url: url)
         }
-        textLabel.text = item.title
+        textLabel.text = cast.name
     }
 }
 

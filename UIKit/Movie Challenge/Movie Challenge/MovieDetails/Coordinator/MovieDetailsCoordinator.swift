@@ -12,18 +12,17 @@ class MovieDetailsCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    var movie: Movie
+    var movieId: Int
 
     init(withNavigationController navigationController: UINavigationController,
-         movie: Movie) {
+         movieId: Int) {
         self.navigationController = navigationController
-        self.movie = movie
+        self.movieId = movieId
     }
 
     func start() {
 
-        let viewModel = MovieDetailsViewModel(movie: movie)
-        let moviesViewController = MovieDetailsViewController(viewModel: viewModel)
+        let moviesViewController = MovieDetailsViewController(movieId: movieId)
         moviesViewController.coordinator = self
         navigationController.pushViewController(moviesViewController, animated: true)
     }

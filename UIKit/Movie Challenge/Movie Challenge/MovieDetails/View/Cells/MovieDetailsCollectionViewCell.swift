@@ -21,16 +21,16 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell, NibLoadable {
         super.awakeFromNib()
     }
     
-    func setup(withItem item: MoviesDetailsSectionItem) {
+    func setup(withMovieDetails movieDetails: MovieDetails) {
 
-        if let url = item.imageURL {
+        if let url = movieDetails.imageURL {
             imageView.loadFrom(url: url)
         }
 
-        titleLabel.text = item.title
-        ratingLabel.text = item.rating
-        genresLabel.text = item.genres
-        directorLabel.text = "Directed by \(item.director ?? String())"
-        overviewLabel.text = item.overview
+        titleLabel.text = movieDetails.title
+        ratingLabel.text = "⭐️ \(movieDetails.voteAverage)/10"
+        genresLabel.text = movieDetails.genres.joined(separator: " • ")
+        directorLabel.text = "Directed by \(movieDetails.director.name ?? String())"
+        overviewLabel.text = movieDetails.overview
     }
 }

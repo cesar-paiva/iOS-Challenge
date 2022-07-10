@@ -43,10 +43,10 @@ extension HomeCoordinator {
         moviesCoordinator.start()
     }
 
-    func showMovieDetails(of movie: Movie) {
+    func showMovieDetails(with id: Int) {
 
         let movieDetailsCoordinator = MovieDetailsCoordinator(withNavigationController: navigationController,
-                                                              movie: movie)
+                                                              movieId: id)
         movieDetailsCoordinator.parentCoordinator = self
         childCoordinators.append(movieDetailsCoordinator)
         movieDetailsCoordinator.start()

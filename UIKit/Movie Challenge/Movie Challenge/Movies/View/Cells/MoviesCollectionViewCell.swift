@@ -20,10 +20,10 @@ class MoviesCollectionViewCell: UICollectionViewCell, NibLoadable {
         imageView.cancelLoadingImage()
     }
 
-    func setup(withItem item: SectionItem) {
-        titleLabel.text = item.title
+    func setup(withMovie movie: Movie) {
+        titleLabel.text = movie.title
 
-        if let url = item.imageURL {
+        if let url = movie.posterPath {
             imageView.downloadAndCacheImage(fromURL: url)
         }
     }

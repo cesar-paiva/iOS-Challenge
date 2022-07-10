@@ -7,9 +7,20 @@
 
 import UIKit
 
-enum HomeLayoutSection: Int, Hashable {
+enum HomeSectionTitle: String {
+    case topMovies = "Movies: Top"
+    case allMovies = "Browse by All"
+    case genres = "Browse By Genre"
+}
+
+struct HomeHeader: Hashable {
+    let isHiddenButton = true
+    let buttonTitle = String()
+}
+
+enum HomeLayoutSection: Hashable, CaseIterable {
     case topMovies
-    case movies
+    case allMovies
     case genres
 }
 
@@ -31,7 +42,7 @@ extension HomeLayoutSection {
             section.supplementariesFollowContentInsets = false
             section.boundarySupplementaryItems = [supplementaryHeaderItem(), supplementaryFooterSeparatorItem()]
             return section
-        case .movies:
+        case .allMovies:
 
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
 

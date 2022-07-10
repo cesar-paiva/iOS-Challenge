@@ -22,11 +22,11 @@ class TopMoviesCollectionViewCell: UICollectionViewCell, NibLoadable {
         imageView.layer.borderColor = UIColor.lightGray.cgColor
     }
 
-    func setup(withItem item: SectionItem) {
+    func setup(withItem item: Movie) {
         titleLabel.text = item.title
-        ratingLabel.text = "⭐️ \(item.rating ?? 0)/10"
+        ratingLabel.text = "⭐️ \(item.voteAverage ?? 0)/10"
 
-        if let url = item.imageURL {
+        if let url = item.posterPath {
             imageView.loadFrom(url: url)
         }
     }

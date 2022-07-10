@@ -13,12 +13,9 @@ struct Movie: Codable, Hashable {
     let id: Int?
     let title: String?
     let voteAverage: Double?
-    let genres: [String]?
     let posterPath: String?
-    let overview: String?
-    let cast: [Cast]?
-    let director: Director?
     let releaseDate: String?
+    let director: Director?
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
@@ -27,12 +24,15 @@ struct Movie: Codable, Hashable {
     }
 }
 
-struct Cast: Codable, Hashable {
+extension Movie {
 
-    let profilePath: String?
-    let name: String?
-}
+    func contains(_ text: String?) -> Bool {
 
-struct Director: Codable, Hashable {
-    let name: String?
+        guard let text = text else { return true }
+
+        if text.isEmpty { return true }
+
+        let lowercasedFilter = text.lowercased()
+        return title?.lowercased().contains(lowercasedFilter) ?? false || director?.name?.lowercased().contains(lowercasedFilter) ?? false
+    }
 }

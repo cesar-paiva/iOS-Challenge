@@ -7,9 +7,9 @@
 
 import UIKit
 
-enum MovieDetailsLayoutSection: Int, Hashable {
-    case details
-    case cast
+enum MovieDetailsLayoutSection: String, Hashable, CaseIterable {
+    case details = ""
+    case cast = "Cast"
 }
 
 extension MovieDetailsLayoutSection {

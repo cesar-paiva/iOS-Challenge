@@ -9,14 +9,13 @@ import UIKit
 
 class MoviesViewController: UIViewController {
 
-    var dataSource: UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, SectionItem>!
+    var dataSource: UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, MoviesSectionItem>!
     var collectionView: UICollectionView!
     var viewModel: MoviesViewModelProtocol
-    var sections = [Section<MoviesByGenreLayoutSection>]()
     var coordinator: MoviesCoordinator?
     let searchBar = UISearchBar(frame: .zero)
 
-    var movieByGenreRegistration: UICollectionView.CellRegistration<MoviesCollectionViewCell, SectionItem>!
+    var movieByGenreRegistration: UICollectionView.CellRegistration<MoviesCollectionViewCell, Movie>!
 
     override func viewDidLoad() {
 
@@ -79,10 +78,15 @@ class MoviesViewController: UIViewController {
         navigationItem.rightBarButtonItem = navItem
     }
 
-    func sortDataSource(withItems items: [SectionItem]) {
+    func sortDataSource(withItems items: [Movie]) {
 
-        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
-        snapshot.appendSections([.movies])
+        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesSectionItem>()
+        snapshot.appendSections(MoviesByGenreLayoutSection.allCases)
+
+        let items = items.map { movie in
+            MoviesSectionItem.movie(movie)
+        }
+
         snapshot.appendItems(items)
         self.dataSource.apply(snapshot, animatingDifferences: false)
     }
@@ -122,38 +126,40 @@ class MoviesViewController: UIViewController {
     func setupCells() {
 
         movieByGenreRegistration = .init(cellNib: MoviesCollectionViewCell.nib, handler: { (cell, _, item) in
-            cell.setup(withItem: item)
+            cell.setup(withMovie: item)
         })
     }
 
     func bindData() {
 
         viewModel.movies.bind { movies in
+
             if let movies = movies, !movies.isEmpty {
-                self.sections.append(Section(title: String(), layout: .movies, items: movies))
-                self.setupDataSource()
+
+                var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesSectionItem>()
+                snapshot.appendSections(MoviesByGenreLayoutSection.allCases)
+
+                let items = movies.map { movie in
+                    MoviesSectionItem.movie(movie)
+                }
+
+                snapshot.appendItems(items)
+
+                self.setupDataSource(withSnapshot: snapshot)
             }
         }
     }
 
-    func setupDataSource() {
+    func setupDataSource(withSnapshot snapshot: NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesSectionItem>) {
 
-        dataSource = UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, SectionItem>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: SectionItem) -> UICollectionViewCell? in
-            guard let sectionIdentifier = self.dataSource.snapshot().sectionIdentifier(containingItem: item) else {
-                return nil
+        dataSource = UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, MoviesSectionItem>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: MoviesSectionItem) -> UICollectionViewCell? in
+
+            switch item {
+            case .movie(let movie):
+                return collectionView.dequeueConfiguredReusableCell(using: self.movieByGenreRegistration, for: indexPath, item: movie)
+
             }
-
-            switch sectionIdentifier {
-            case .movies:
-                return collectionView.dequeueConfiguredReusableCell(using: self.movieByGenreRegistration, for: indexPath, item: item)
-            }
-        }
-
-        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
-        sections.forEach { section in
-            snapshot.appendSections([section.layout])
-            snapshot.appendItems(section.items)
         }
 
         dataSource.apply(snapshot, animatingDifferences: false)
@@ -163,9 +169,14 @@ class MoviesViewController: UIViewController {
 
         let movies = viewModel.filteredMovies(with: text).sorted { $0.title ?? String() < $1.title ?? String() }
 
-        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
+        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesSectionItem>()
         snapshot.appendSections([.movies])
-        snapshot.appendItems(movies)
+
+        let items = movies.map { movie in
+            MoviesSectionItem.movie(movie)
+        }
+
+        snapshot.appendItems(items)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

@@ -9,10 +9,10 @@ import UIKit
 
 extension UICollectionViewListCell {
 
-    func setup(withItem item: SectionItem) {
+    func setup(withTitle text: String) {
 
         var content = defaultContentConfiguration()
-        content.text = item.title
+        content.text = text
         contentConfiguration = content
     }
 }

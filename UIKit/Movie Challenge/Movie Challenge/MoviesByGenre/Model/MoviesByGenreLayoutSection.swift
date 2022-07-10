@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum MoviesByGenreLayoutSection: Hashable {
+enum MoviesByGenreLayoutSection: Hashable, CaseIterable {
     case movies
 }
 

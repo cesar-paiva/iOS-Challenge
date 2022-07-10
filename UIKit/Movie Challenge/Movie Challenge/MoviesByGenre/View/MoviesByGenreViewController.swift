@@ -9,13 +9,12 @@ import UIKit
 
 class MoviesByGenreViewController: UIViewController {
 
-    var dataSource: UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, SectionItem>!
+    var dataSource: UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, MoviesByGenreSectionItem>!
     var collectionView: UICollectionView!
     var viewModel: MoviesByGenreViewModelProtocol
-    var sections = [Section<MoviesByGenreLayoutSection>]()
     var coordinator: MoviesByGenreCoordinator?
 
-    var movieByGenreRegistration: UICollectionView.CellRegistration<MoviesCollectionViewCell, SectionItem>!
+    var movieByGenreRegistration: UICollectionView.CellRegistration<MoviesCollectionViewCell, Movie>!
     var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
     var footerRegistration: UICollectionView.SupplementaryRegistration<SeparatorCollectionReusableView>!
 
@@ -80,10 +79,15 @@ class MoviesByGenreViewController: UIViewController {
         navigationItem.rightBarButtonItem = navItem
     }
 
-    func sortDataSource(withItems items: [SectionItem]) {
+    func sortDataSource(withItems items: [Movie]) {
 
-        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
+        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesByGenreSectionItem>()
         snapshot.appendSections([.movies])
+
+        let items = items.map { movie in
+            MoviesByGenreSectionItem.movie(movie)
+        }
+
         snapshot.appendItems(items)
         self.dataSource.apply(snapshot, animatingDifferences: false)
     }
@@ -106,15 +110,14 @@ class MoviesByGenreViewController: UIViewController {
     func setupCells() {
 
         movieByGenreRegistration = .init(cellNib: MoviesCollectionViewCell.nib, handler: { (cell, _, item) in
-            cell.setup(withItem: item)
+            cell.setup(withMovie: item)
         })
     }
 
     func setupHeader() {
 
-        headerRegistration = .init(supplementaryNib: SectionHeaderTextReusableView.nib, elementKind: UICollectionView.elementKindSectionHeader, handler: { (header, _, indexPath) in
-            let title = self.sections[indexPath.section].title
-            header.titleLabel.text = title
+        headerRegistration = .init(supplementaryNib: SectionHeaderTextReusableView.nib, elementKind: UICollectionView.elementKindSectionHeader, handler: { (header, text, indexPath) in
+            header.titleLabel.text = text
         })
     }
 
@@ -126,23 +129,29 @@ class MoviesByGenreViewController: UIViewController {
 
         viewModel.movies.bind { movies in
             if let movies = movies, !movies.isEmpty {
-                self.sections.append(Section(title: String(), layout: .movies, items: movies))
-                self.setupDataSource()
+
+                var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesByGenreSectionItem>()
+                snapshot.appendSections(MoviesByGenreLayoutSection.allCases)
+
+                let items = movies.map { movie in
+                    MoviesByGenreSectionItem.movie(movie)
+                }
+
+                snapshot.appendItems(items)
+
+                self.setupDataSource(withSnapshot: snapshot)
             }
         }
     }
 
-    func setupDataSource() {
+    func setupDataSource(withSnapshot snapshot: NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, MoviesByGenreSectionItem>) {
 
-        dataSource = UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, SectionItem>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: SectionItem) -> UICollectionViewCell? in
-            guard let sectionIdentifier = self.dataSource.snapshot().sectionIdentifier(containingItem: item) else {
-                return nil
-            }
+        dataSource = UICollectionViewDiffableDataSource<MoviesByGenreLayoutSection, MoviesByGenreSectionItem>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: MoviesByGenreSectionItem) -> UICollectionViewCell? in
 
-            switch sectionIdentifier {
-            case .movies:
-                return collectionView.dequeueConfiguredReusableCell(using: self.movieByGenreRegistration, for: indexPath, item: item)
+            switch item {
+            case .movie(let movie):
+                return collectionView.dequeueConfiguredReusableCell(using: self.movieByGenreRegistration, for: indexPath, item: movie)
             }
         }
 
@@ -152,12 +161,6 @@ class MoviesByGenreViewController: UIViewController {
             } else {
                 return collectionView.dequeueConfiguredReusableSupplementary(using: self.footerRegistration, for: indexPath)
             }
-        }
-
-        var snapshot = NSDiffableDataSourceSnapshot<MoviesByGenreLayoutSection, SectionItem>()
-        sections.forEach { section in
-            snapshot.appendSections([section.layout])
-            snapshot.appendItems(section.items)
         }
 
         dataSource.apply(snapshot, animatingDifferences: false)

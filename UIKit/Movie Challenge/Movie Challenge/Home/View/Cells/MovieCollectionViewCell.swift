@@ -18,12 +18,12 @@ class MovieCollectionViewCell: UICollectionViewCell, NibLoadable {
         imageView.layer.cornerRadius = 4
     }
     
-    func setup(withItem item: SectionItem) {
+    func setup(withItem item: Movie) {
 
         titleLabel.text = item.title
-        subtitleLabel.text = item.subtitle?.prefix(4).description
+        subtitleLabel.text = "⭐️ \(item.voteAverage ?? 0)/10"
 
-        if let url = item.imageURL {
+        if let url = item.posterPath {
             imageView.loadFrom(url: url)
         }
     }

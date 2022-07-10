@@ -9,53 +9,27 @@ import Foundation
 
 protocol MovieDetailsViewModelProtocol {
 
-    var movie: Movie { get }
-    var movieDetail: [MoviesDetailsSectionItem] { get }
-    var cast: [MoviesDetailsSectionItem] { get }
+    var movie: Bindable<MovieDetails> { get }
+
+    func fetchMovie(withId: Int)
 }
 
 class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
 
-    var movie: Movie
+    var movieDetailsService: MovieDetailsServiceGetable
+    var movie = Bindable<MovieDetails>(nil)
+    var error: String?
 
-    var title: String? {
-        return movie.title
+    init(movieDetailsService: MovieDetailsServiceGetable = MovieDetailsService()) {
+        self.movieDetailsService = movieDetailsService
     }
 
-    var rating: String? {
-        return "⭐️ \(movie.voteAverage ?? 0)/10"
-    }
+    func fetchMovie(withId id: Int) {
 
-    var genres: String? {
-        return movie.genres?.joined(separator: " • ")
-    }
+        movieDetailsService.getMovie(withId: id) { movie, error in
 
-    var imageURL: String? {
-        return movie.posterPath
-    }
-
-    var overview: String? {
-        return movie.overview
-    }
-
-    var movieDetail: [MoviesDetailsSectionItem] {
-        return [MoviesDetailsSectionItem(id: movie.id,
-                                        title: movie.title,
-                                        rating: rating,
-                                        genres: genres,
-                                         director: movie.director?.name,
-                                        imageURL: movie.posterPath,
-                                        overview: movie.overview)]
-    }
-
-    var cast: [MoviesDetailsSectionItem] {
-
-        return movie.cast?.map({ cast in
-            return (MoviesDetailsSectionItem(title: cast.name, imageURL: cast.profilePath))
-        }) ?? []
-    }
-
-    init(movie: Movie) {
-        self.movie = movie
+            self.movie.value = movie
+            self.error = error
+        }
     }
 }

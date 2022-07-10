@@ -12,18 +12,18 @@ extension MoviesByGenreViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        if let item = dataSource?.itemIdentifier(for: indexPath) {
-            let movie = Movie(id: item.id,
-                              title: item.title,
-                              voteAverage: item.rating,
-                              genres: item.genres,
-                              posterPath: item.imageURL,
-                              overview: item.overview,
-                              cast: item.cast,
-                              director: item.director,
-                              releaseDate: item.releaseDate)
+        
+        if let item = dataSource.itemIdentifier(for: indexPath) {
 
-            coordinator?.showMovieDetails(of: movie)
+
+            switch item {
+
+            case .movie(let movie):
+
+                if let id = movie.id {
+                    coordinator?.showMovieDetails(with: id)
+                }
+            }
         }
     }
 }

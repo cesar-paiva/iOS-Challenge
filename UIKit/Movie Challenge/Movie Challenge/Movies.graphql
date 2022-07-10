@@ -4,14 +4,8 @@ query GetTopMovies($limit: Int!) {
         id
     title
     voteAverage
-    genres
     posterPath
-    overview
     releaseDate
-    cast {
-      profilePath
-      name
-        }
     director {
       name
     }
@@ -24,14 +18,8 @@ query GetMovies($limit: Int) {
     id
     title
     voteAverage
-    genres
     posterPath
-    overview
     releaseDate
-    cast {
-      profilePath
-      name
-        }
     director {
       name
     }
@@ -40,6 +28,20 @@ query GetMovies($limit: Int) {
 
 query GetMoviesByGenre($genre: String!) {
   movies(genre: $genre, orderBy: "title") {
+    __typename
+    id
+    title
+    voteAverage
+    posterPath
+    releaseDate
+    director {
+      name
+    }
+  }
+}
+
+query GetMovie($id: Int!) {
+  movie(id: $id) {
     __typename
     id
     title

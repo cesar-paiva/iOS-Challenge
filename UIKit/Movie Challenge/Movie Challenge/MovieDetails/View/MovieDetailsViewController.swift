@@ -11,12 +11,12 @@ class MovieDetailsViewController: UIViewController {
 
     var collectionView: UICollectionView! = nil
     var viewModel: MovieDetailsViewModelProtocol
-    var dataSource: UICollectionViewDiffableDataSource<MovieDetailsLayoutSection, MoviesDetailsSectionItem>?
-    var sections = [MovieDetailsSection]()
+    var dataSource: UICollectionViewDiffableDataSource<MovieDetailsLayoutSection, MovieDetailsSectionItem>?
     var coordinator: MovieDetailsCoordinator?
+    var movieId: Int
 
-    var movieDetailsRegistration: UICollectionView.CellRegistration<MovieDetailsCollectionViewCell, MoviesDetailsSectionItem>!
-    var castRegistration: UICollectionView.CellRegistration<CastCollectionViewCell, MoviesDetailsSectionItem>!
+    var movieDetailsRegistration: UICollectionView.CellRegistration<MovieDetailsCollectionViewCell, MovieDetails>!
+    var castRegistration: UICollectionView.CellRegistration<CastCollectionViewCell, Cast>!
     var headerRegistration: UICollectionView.SupplementaryRegistration<SectionHeaderTextReusableView>!
     var footerRegistration: UICollectionView.SupplementaryRegistration<SeparatorCollectionReusableView>!
 
@@ -29,7 +29,8 @@ class MovieDetailsViewController: UIViewController {
         setupCells()
         setupHeader()
         setupFooter()
-        setupSections()
+        viewModel.fetchMovie(withId: movieId)
+        bindData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -37,9 +38,11 @@ class MovieDetailsViewController: UIViewController {
         coordinator?.didFinishShowMovieDetails()
     }
 
-    init(viewModel: MovieDetailsViewModelProtocol) {
+    init(viewModel: MovieDetailsViewModelProtocol = MovieDetailsViewModel(),
+         movieId: Int) {
 
         self.viewModel = viewModel
+        self.movieId = movieId
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -68,11 +71,11 @@ class MovieDetailsViewController: UIViewController {
     func setupCells() {
 
         movieDetailsRegistration = .init(cellNib: MovieDetailsCollectionViewCell.nib, handler: { (cell, _, item) in
-            cell.setup(withItem: item)
+            cell.setup(withMovieDetails: item)
         })
 
         castRegistration = .init(cellNib: CastCollectionViewCell.nib, handler: { (cell, indexPath, item) in
-            cell.setup(withItem: item)
+            cell.setup(withCast: item)
         })
     }
 
@@ -80,8 +83,9 @@ class MovieDetailsViewController: UIViewController {
 
         headerRegistration = .init(supplementaryNib: SectionHeaderTextReusableView.nib, elementKind: UICollectionView.elementKindSectionHeader, handler: { (header, _, indexPath) in
 
-            let title = self.sections[indexPath.section].title
-            header.setup(title: title)
+            if let title = self.dataSource?.sectionIdentifier(for: indexPath.section) {
+                header.setup(title: title.rawValue)
+            }
         })
     }
 
@@ -89,27 +93,16 @@ class MovieDetailsViewController: UIViewController {
         footerRegistration = .init(elementKind: UICollectionView.elementKindSectionFooter, handler: { (_, _, _) in })
     }
 
-    func setupSections() {
+    func setupDataSource(withSnapshot snapshot: NSDiffableDataSourceSnapshot<MovieDetailsLayoutSection, MovieDetailsSectionItem>) {
 
-        sections.append(MovieDetailsSection(title: String(), layout: .details, items: viewModel.movieDetail))
-        sections.append(MovieDetailsSection(title: "Cast", layout: .cast, items: viewModel.cast))
-        setupDataSource()
+        dataSource = UICollectionViewDiffableDataSource<MovieDetailsLayoutSection, MovieDetailsSectionItem>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: MovieDetailsSectionItem) -> UICollectionViewCell? in
 
-    }
-
-    func setupDataSource() {
-
-        dataSource = UICollectionViewDiffableDataSource<MovieDetailsLayoutSection, MoviesDetailsSectionItem>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: MoviesDetailsSectionItem) -> UICollectionViewCell? in
-            guard let sectionIdentifier = self.dataSource?.snapshot().sectionIdentifier(containingItem: item) else {
-                return nil
-            }
-
-            switch sectionIdentifier {
-            case .details:
-                return collectionView.dequeueConfiguredReusableCell(using: self.movieDetailsRegistration, for: indexPath, item: item)
-            case .cast:
-                return collectionView.dequeueConfiguredReusableCell(using: self.castRegistration, for: indexPath, item: item)
+            switch item {
+            case .details(let movieDetails):
+                return collectionView.dequeueConfiguredReusableCell(using: self.movieDetailsRegistration, for: indexPath, item: movieDetails)
+            case .cast(let cast):
+                return collectionView.dequeueConfiguredReusableCell(using: self.castRegistration, for: indexPath, item: cast)
             }
         }
 
@@ -121,12 +114,31 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        var snapshot = NSDiffableDataSourceSnapshot<MovieDetailsLayoutSection, MoviesDetailsSectionItem>()
-        sections.forEach { section in
-            snapshot.appendSections([section.layout])
-            snapshot.appendItems(section.items)
-        }
+        self.dataSource?.apply(snapshot, animatingDifferences: false)
 
-        dataSource?.apply(snapshot, animatingDifferences: false)
+
+    }
+
+    func bindData() {
+
+        viewModel.movie.bind { movie in
+
+            if let movie = movie {
+
+                var snapshot = NSDiffableDataSourceSnapshot<MovieDetailsLayoutSection, MovieDetailsSectionItem>()
+                snapshot.appendSections(MovieDetailsLayoutSection.allCases)
+
+
+                let movieDetailsItem = MovieDetailsSectionItem.details(movie)
+                snapshot.appendItems([movieDetailsItem], toSection: MovieDetailsLayoutSection.details)
+
+                let castItems = movie.cast.map { cast in
+                    MovieDetailsSectionItem.cast(cast)
+                }
+                snapshot.appendItems(castItems, toSection: MovieDetailsLayoutSection.cast)
+
+                self.setupDataSource(withSnapshot: snapshot)
+            }
+        }
     }
 }

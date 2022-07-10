@@ -31,10 +31,10 @@ class MoviesByGenreCoordinator: Coordinator {
 
 extension MoviesByGenreCoordinator {
 
-    func showMovieDetails(of movie: Movie) {
+    func showMovieDetails(with id: Int) {
 
         let movieDetailsCoordinator = MovieDetailsCoordinator(withNavigationController: navigationController,
-                                                              movie: movie)
+                                                              movieId: id)
         childCoordinators.append(movieDetailsCoordinator)
         movieDetailsCoordinator.parentCoordinator = self
         movieDetailsCoordinator.start()

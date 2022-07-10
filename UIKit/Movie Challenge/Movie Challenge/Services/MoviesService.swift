@@ -40,12 +40,9 @@ class MoviesService: MoviesServiceGetable {
                         Movie(id: movie?.id,
                               title: movie?.title,
                               voteAverage: movie?.voteAverage,
-                              genres: movie?.genres,
                               posterPath: movie?.posterPath,
-                              overview: movie?.overview,
-                              cast: movie?.cast.map({ Cast(profilePath: $0.profilePath, name: $0.name) }),
-                              director: Director(name: movie?.director.name ?? String()),
-                              releaseDate: movie?.releaseDate)
+                              releaseDate: movie?.releaseDate,
+                              director: Director(name: movie?.director.name))
                     })
                 }
 
@@ -74,12 +71,9 @@ class MoviesService: MoviesServiceGetable {
                         Movie(id: movie?.id,
                               title: movie?.title,
                               voteAverage: movie?.voteAverage,
-                              genres: movie?.genres,
                               posterPath: movie?.posterPath,
-                              overview: movie?.overview,
-                              cast: movie?.cast.map({ Cast(profilePath: $0.profilePath, name: $0.name) }),
-                              director: Director(name: movie?.director.name),
-                              releaseDate: movie?.releaseDate)
+                              releaseDate: movie?.releaseDate,
+                              director: Director(name: movie?.director.name))
                     })
                 }
 
@@ -105,12 +99,9 @@ class MoviesService: MoviesServiceGetable {
                         Movie(id: movie?.id,
                               title: movie?.title,
                               voteAverage: movie?.voteAverage,
-                              genres: movie?.genres,
                               posterPath: movie?.posterPath,
-                              overview: movie?.overview,
-                              cast: movie?.cast.map({ Cast(profilePath: $0.profilePath, name: $0.name) }),
-                              director: Director(name: movie?.director.name),
-                              releaseDate: movie?.releaseDate)
+                              releaseDate: movie?.releaseDate,
+                              director: Director(name: movie?.director.name))
                     })
                 }
 
